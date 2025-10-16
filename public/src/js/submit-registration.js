@@ -1,15 +1,20 @@
 // public/assets/js/submit-registration.js
+// 2-step submit:
+// 1) Upload file to Google Apps Script Web App (runs as YOU) → returns { ok, fileUrl }
+// 2) Send all fields + fileUrl to /api/register (Vercel) → appends to Google Sheet
+
 (function () {
     const form = document.querySelector('form.reg-card__body');
     if (!form) return;
 
-    // Deployed Apps Script Web App URL (Anyone with the link)
+    // ⬇️ Replace with your deployed Apps Script Web App URL (Access: "Anyone with the link")
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbzasyDHva9DUz0Yp0klNvJbbESb8gX2I0GOXqNUM1jl763WLrRhph7Sj1VSwht0pHr4/exec';
 
     const btn = form.querySelector('button[type="submit"]');
+
     const showError = (msg) => {
         console.error(msg);
-        alert(msg); // swap with your own inline toast if you prefer
+        alert(msg); // swap with custom toast if you prefer
     };
 
     const setBusy = (busy) => {
@@ -25,7 +30,7 @@
         try {
             const fd = new FormData(form);
 
-            // Basic client file checks
+            // Basic client-side file checks
             const file = fd.get('receipt');
             if (!file || (typeof file === 'object' && file.size === 0)) {
                 setBusy(false);
@@ -36,7 +41,7 @@
                 return showError('File is larger than 10MB. Please upload a smaller file.');
             }
 
-            // 1) Upload to Apps Script (runs as YOU → lands in your My Drive)
+            // 1) Upload to Apps Script (multipart/form-data)
             const gasResp = await fetch(GAS_URL, {
                 method: 'POST',
                 body: fd,
@@ -44,16 +49,17 @@
                 credentials: 'omit',
             });
 
-            // If GAS returns HTML (auth page) you'll get a parser error here — means the web app isn't deployed to "Anyone with the link".
+            // If GAS returns HTML (auth page), this parse will fail. Ensure Web App is "Anyone with the link".
             const gasJson = await gasResp.json().catch(() => ({}));
             if (!gasResp.ok || !gasJson?.ok) {
-                throw new Error(gasJson?.error || `Upload failed (status ${gasResp.status})`);
+                const msg = gasJson?.error || `Upload failed (status ${gasResp.status})`;
+                throw new Error(msg);
             }
             const fileUrl = gasJson.fileUrl;
             if (!fileUrl) throw new Error('Apps Script did not return fileUrl');
 
             // 2) Post to your Vercel API with URL only (no binary now)
-            fd.delete('receipt');
+            fd.delete('receipt');           // remove the large file
             fd.append('receiptUrl', fileUrl);
 
             const apiResp = await fetch('/api/register', {
@@ -64,10 +70,11 @@
             });
             const apiJson = await apiResp.json().catch(() => ({}));
             if (!apiResp.ok || !apiJson?.ok) {
-                throw new Error(apiJson?.error || `Registration failed (status ${apiResp.status})`);
+                const msg = apiJson?.error || `Registration failed (status ${apiResp.status})`;
+                throw new Error(msg);
             }
 
-            // 3) Success — redirect to a thank-you page
+            // 3) Success — redirect to a Thank You page
             window.location.href = '/thank-you.html';
 
         } catch (err) {
