@@ -8,7 +8,7 @@
     const submitBtn = form.querySelector('[type="submit"]');
 
     // Your Apps Script Web App URL (must end with /exec)
-    const GAS_URL = "https://script.google.com/macros/s/AKfycby62yW_pAkFmxleGevjzoBXGHWQ8q9scDWHbriIa2YfhhNmoHcKQM6YG3WpAm_z-95R/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw6VnErhKLx6L_P6IZ1KDIxc2dJLyj0dfSLgVE9TIeAYNtb9ROSD3Rs_5skJEIBsn-n/exec";
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
