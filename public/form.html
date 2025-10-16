@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event Registration</title>
+
+    <!-- Performance for Cloudinary -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="dns-prefetch" href="//res.cloudinary.com">
+
+    <!-- Your global stylesheet should be linked before this -->
+    <link rel="stylesheet" href="../src/css/styles.css">
+
+    <!-- Form-specific styles -->
+    <link rel="preload" href="../src/css/form.css" as="style">
+    <link rel="stylesheet" href="../src/css/form.css">
+    <!-- Navbar-specific styles -->
+    <link rel="preload" href="../src/css/navbar.css" as="style">
+    <link rel="stylesheet" href="../src/css/navbar.css">
+
+    <!-- Footer-specific styles -->
+    <link rel="preload" href="../src/css/footer.css" as="style">
+    <link rel="stylesheet" href="../src/css/footer.css">
+    <script defer src="../src/js/navbar.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <!-- Left: Logo -->
+            <a class="logo" href="./index.html" aria-label="NHC INDOCON 2026">
+                <img src="../../public/indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
+                    fetchpriority="high">
+            </a>
+
+            <!-- Center: Nav -->
+            <nav id="nav-menu" class="nav" aria-label="Primary">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="./index.html">Home</a></li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">About</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./about-nhc-indocon.html">About NHC IndoCon</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./about-aosi.html">About AOSI</a></li>
+                            <li role="none"><a role="menuitem" href="./about-indore.html">About Indore</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Committees</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./patrons.html">Patrons</a></li>
+                            <li role="none"><a role="menuitem" href="./organising-committee.html">Organising
+                                    Committee</a></li>
+                            <li role="none"><a role="menuitem" href="./proposed-faculties.html">Proposed Faculties</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./team-mp.html">Team Madhya Pradesh</a></li>
+                            <li role="none"><a role="menuitem" href="./scientific.html">Scientific</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
+                            Program</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./program-overview.html">Overview</a></li>
+                            <li role="none"><a role="menuitem" href="./schedule.html">Schedule</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Venue &
+                            Travel</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./venue.html">Venue</a></li>
+                            <li role="none"><a role="menuitem" href="./travel.html">Travel</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a href="./gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a href="./contact.html">Contact Us</a></li>
+
+                    <!-- Mobile CTA (inside drawer, last) -->
+                    <li class="nav-item nav-cta-mobile">
+                        <a class="btn btn-primary btn-cta" href="/src/pages/form.html">Register Now</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right: Desktop CTA -->
+            <div class="nav-cta-desktop">
+                <a class="btn btn-primary btn-cta" href="/src/pages/form.html">Register Now</a>
+            </div>
+
+            <!-- Mobile hamburger -->
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+    <main class="container">
+        <!-- Poster / hero -->
+        <figure class="reg-hero" aria-label="Event poster">
+            <img src="https://res.cloudinary.com/de0rdsbph/image/upload/v1760609693/8c035d9b-3f73-420a-8d56-17dc5434939d.png"
+                alt="Event Poster" width="1400" height="700" decoding="async" fetchpriority="high" />
+        </figure>
+
+        <!-- Registration Card -->
+        <section class="reg-card" aria-labelledby="reg-title">
+            <header class="reg-card__header">
+                <h1 id="reg-title">Event Registration Form</h1>
+                <p class="reg-muted">Please fill in the details below to complete your registration.</p>
+            </header>
+
+            <form class="reg-card__body" action="/api/register" method="post" enctype="multipart/form-data">
+                <!-- Personal Info -->
+                <fieldset class="reg-section">
+                    <legend>Personal Information</legend>
+
+                    <div class="reg-grid reg-g3">
+                        <label class="reg-control">
+                            <span>Title</span>
+                            <select name="title" autocomplete="honorific-prefix">
+                                <option value="" selected>Mr / Ms / Dr (select)</option>
+                                <option>Mr</option>
+                                <option>Ms</option>
+                                <option>Mrs</option>
+                                <option>Dr</option>
+                                <option>Prof</option>
+                                <option>Mx</option>
+                            </select>
+                        </label>
+
+                        <label class="reg-control reg-req">
+                            <span>First Name</span>
+                            <input name="firstName" type="text" placeholder="Enter First Name" autocomplete="given-name"
+                                required>
+                        </label>
+
+                        <label class="reg-control">
+                            <span>Middle Name</span>
+                            <input name="middleName" type="text" placeholder="Enter Middle Name"
+                                autocomplete="additional-name">
+                        </label>
+
+                        <label class="reg-control reg-req">
+                            <span>Last Name</span>
+                            <input name="lastName" type="text" placeholder="Enter Last Name" autocomplete="family-name"
+                                required>
+                        </label>
+
+                        <label class="reg-control reg-req">
+                            <span>Phone Number</span>
+                            <input name="phone" type="tel" placeholder="Enter Your Number" inputmode="tel"
+                                autocomplete="tel" pattern="[0-9]{10}" maxlength="10" required>
+                            <small class="reg-help">10-digit mobile number</small>
+                        </label>
+
+                        <label class="reg-control reg-req">
+                            <span>Email</span>
+                            <input name="email" type="email" placeholder="Enter Your Email" autocomplete="email"
+                                required>
+                        </label>
+
+                        <label class="reg-control">
+                            <span>Qualification</span>
+                            <input name="qualification" type="text" placeholder="Enter Qualification"
+                                autocomplete="organization-title">
+                        </label>
+
+                        <label class="reg-control">
+                            <span>Designation</span>
+                            <input name="designation" type="text" placeholder="Enter Designation"
+                                autocomplete="organization-title">
+                        </label>
+
+                        <label class="reg-control">
+                            <span>State</span>
+                            <input name="state" type="text" placeholder="Enter State" autocomplete="address-level1">
+                        </label>
+
+                        <label class="reg-control">
+                            <span>City</span>
+                            <input name="city" type="text" placeholder="Enter City" autocomplete="address-level2">
+                        </label>
+
+                        <label class="reg-control reg-span2">
+                            <span>Institute / Hospital / Clinic</span>
+                            <input name="organization" type="text" placeholder="Enter Institute / Hospital / Clinic"
+                                autocomplete="organization">
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Non-Residential -->
+                <fieldset class="reg-section">
+                    <legend>Registration (Non-Residential Packages)</legend>
+
+                    <div class="reg-grid reg-g2">
+                        <label class="reg-control">
+                            <span>Category</span>
+                            <select name="nrCategory">
+                                <option value="" selected>Nil</option>
+                                <option value="cadaveric">Cadaveric Workshop</option>
+                                <option value="conference">Conference Only</option>
+                                <option value="student">Student / Resident</option>
+                                <option value="industry">Industry Delegate</option>
+                            </select>
+
+                            <p class="reg-note">
+                                Cadaveric Workshop – ₹50,000 + 18% GST + ₹1,000 incidental charges
+                            </p>
+                            <p class="reg-help">
+                                Includes: 3 nights stay at Brilliant Convention Centre, Indore / Cadaveric workshop /
+                                Conference Registration
+                            </p>
+                        </label>
+
+                        <label class="reg-control">
+                            <span>Accompanying Person</span>
+                            <select name="accompany">
+                                <option value="" selected>Nil</option>
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Residential -->
+                <fieldset class="reg-section">
+                    <legend>Registration (Residential Package)</legend>
+
+                    <div class="reg-grid reg-g2">
+                        <label class="reg-control">
+                            <span>2 Days / 1 Night (24–25 Jan 2026) <em class="reg-muted">(till 31st Oct)</em></span>
+                            <select name="residential_2d1n">
+                                <option value="" selected>Nil</option>
+                                <option value="single">Single Occupancy</option>
+                                <option value="double">Double Occupancy</option>
+                                <option value="twin">Twin Sharing</option>
+                            </select>
+                        </label>
+
+                        <label class="reg-control">
+                            <span>3 Days / 2 Nights (23–25 Jan 2026)</span>
+                            <select name="residential_3d2n">
+                                <option value="" selected>Nil</option>
+                                <option value="single">Single Occupancy</option>
+                                <option value="double">Double Occupancy</option>
+                                <option value="twin">Twin Sharing</option>
+                            </select>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Payment -->
+                <fieldset class="reg-section" id="payment">
+                    <legend>Payment</legend>
+
+                    <div class="reg-pay">
+                        <div class="reg-qr">
+                            <img src="https://res.cloudinary.com/de0rdsbph/image/upload/v1760609834/bc51b379-bdab-4caf-99ad-6e9473a5a760.png"
+                                alt="Scan to pay QR" width="600" height="600" loading="lazy" decoding="async" />
+                        </div>
+
+                        <div class="reg-bank">
+                            <ul class="reg-banklist">
+                                <li><b>Account Name</b><span>Your Organisation Name</span></li>
+                                <li><b>Account Number</b><span>000000000000</span></li>
+                                <li><b>IFSC</b><span>ABCD0123456</span></li>
+                                <li><b>Bank & Branch</b><span>Bank Name, Branch</span></li>
+                                <li><b>UPI ID</b><span>your@upi (optional)</span></li>
+                            </ul>
+                            <p class="reg-help">Scan the QR or use the bank details to pay. Keep your
+                                Transaction/Reference ID ready.</p>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Transaction + Upload -->
+                <div class="reg-grid reg-g2 reg-section">
+                    <label class="reg-control reg-req">
+                        <span>Transaction ID / Reference No.</span>
+                        <input name="transactionId" type="text" placeholder="Enter Transaction ID or Reference Number"
+                            required>
+                    </label>
+
+                    <label class="reg-control reg-req">
+                        <span>Upload Payment Screenshot / Receipt</span>
+                        <input name="receipt" type="file" accept="image/*,.pdf" required>
+                        <small class="reg-help">Accepted: JPG/PNG/PDF. Max 10MB.</small>
+                    </label>
+                </div>
+
+                <!-- Actions -->
+                <div class="reg-actions">
+                    <button class="btn btn-primary" type="submit">Register Now</button>
+                </div>
+
+                <p class="reg-small">By submitting, you confirm the details are accurate to the best of your knowledge.
+                </p>
+            </form>
+        </section>
+    </main>
+
+</body>
+
+</html>

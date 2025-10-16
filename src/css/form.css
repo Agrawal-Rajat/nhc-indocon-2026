@@ -1,0 +1,347 @@
+/* Uses your global tokens: --bg, --text, --muted, --blue, --blue-2, --border, --shadow, --radius */
+
+/* ===== Subtle background design (additive, lightweight) ===== */
+body {
+  /* Your earlier soft gradients */
+  background: radial-gradient(
+      circle at 80% 10%,
+      rgba(36, 77, 168, 0.06),
+      transparent 50%
+    ),
+    radial-gradient(circle at 20% 80%, rgba(36, 77, 168, 0.04), transparent 50%),
+    #ffffff;
+
+  /* Ensure our decorative layers sit under content */
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Keep all page content comfortably above the decorative layers */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Decorative layer 1: ultra-soft conic glow at top-right --- */
+body::before {
+  content: "";
+  position: fixed;
+  top: -240px;
+  right: -240px;
+  width: 520px;
+  height: 520px;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(18px);
+  opacity: 0.22;
+  background: conic-gradient(
+    from 210deg,
+    rgba(31, 62, 138, 0.18),
+    rgba(31, 62, 138, 0.06) 35%,
+    rgba(31, 62, 138, 0) 75%,
+    rgba(31, 62, 138, 0.18)
+  );
+  border-radius: 50%;
+}
+
+/* --- Decorative layer 2: faint scientific grid, vignetted to edges --- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* a very light grid (both directions) */
+  background: repeating-linear-gradient(
+      to right,
+      rgba(15, 23, 42, 0.04) 0px,
+      rgba(15, 23, 42, 0.04) 1px,
+      transparent 1px,
+      transparent 32px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(15, 23, 42, 0.035) 0px,
+      rgba(15, 23, 42, 0.035) 1px,
+      transparent 1px,
+      transparent 32px
+    );
+
+  /* fade the grid toward edges so it never feels heavy */
+  -webkit-mask: radial-gradient(
+    ellipse at 50% 20%,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.4) 45%,
+    rgba(0, 0, 0, 0) 85%
+  );
+  mask: radial-gradient(
+    ellipse at 50% 20%,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.4) 45%,
+    rgba(0, 0, 0, 0) 85%
+  );
+}
+
+/* --- Optional: subtle “molecule” dots bottom-left for medical vibe --- */
+@media (min-width: 900px) {
+  .molecule-dots::before {
+    content: "";
+    position: fixed;
+    left: -120px;
+    bottom: -120px;
+    width: 420px;
+    height: 420px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.14;
+    background: radial-gradient(rgba(31, 62, 138, 0.12) 1px, transparent 1px);
+    background-size: 18px 18px;
+
+    /* soft circular mask so dots don’t feel busy */
+    -webkit-mask: radial-gradient(circle at 60% 60%, #000 55%, transparent 80%);
+    mask: radial-gradient(circle at 60% 60%, #000 55%, transparent 80%);
+  }
+}
+/* To enable the dots, add `class="molecule-dots"` on your <body> or <main> */
+
+/* ===== Your existing form styles ===== */
+
+/* Poster */
+.reg-hero {
+  display: grid;
+  place-items: center;
+  margin: 12px auto 18px;
+}
+.reg-hero img {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: calc(var(--radius) + 4px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: #fff;
+}
+
+/* Card */
+.reg-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.reg-card__header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(
+      180deg,
+      rgba(31, 62, 138, 0.06),
+      rgba(31, 62, 138, 0) 55%
+    ),
+    #fff;
+}
+.reg-card__header h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+}
+.reg-muted {
+  color: var(--muted);
+}
+.reg-card__body {
+  padding: 18px;
+}
+
+/* Section block */
+.reg-section {
+  margin: 10px 0 14px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+.reg-section > legend {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  padding: 0 6px;
+}
+
+/* Grid */
+.reg-grid {
+  display: grid;
+  gap: 14px;
+}
+.reg-g2 {
+  grid-template-columns: 1fr 1fr;
+}
+.reg-g3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.reg-span2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 980px) {
+  .reg-g3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 720px) {
+  .reg-g3,
+  .reg-g2 {
+    grid-template-columns: 1fr;
+  }
+  .reg-span2 {
+    grid-column: auto;
+  }
+}
+
+/* Controls */
+.reg-control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.reg-control > span {
+  font-size: 14px;
+}
+.reg-req > span::after {
+  content: " *";
+  color: #e11d48;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="file"],
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #9aa3b2;
+}
+
+/* Native select arrow styled with your blue */
+select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="%231f3e8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(31, 62, 138, 0.18);
+  background: #fff;
+}
+
+.reg-help {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.reg-note {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(31, 62, 138, 0.06),
+    rgba(31, 62, 138, 0.02)
+  );
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+/* Payment */
+.reg-pay {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .reg-pay {
+    grid-template-columns: 1fr;
+  }
+}
+
+.reg-qr {
+  background: #fff;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.reg-qr img {
+  border-radius: 8px;
+}
+
+.reg-bank {
+  background: #fff;
+}
+.reg-banklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.reg-banklist li {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 8px;
+}
+.reg-banklist b {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+/* Actions */
+.reg-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+@media (max-width: 640px) {
+  .reg-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Small print */
+.reg-small {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
