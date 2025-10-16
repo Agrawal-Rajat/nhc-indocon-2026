@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>NHC INDOCON 2026</title>
+
+    <!-- Favicon (kept your .ico) -->
+    <link rel="icon" href="../../public/indocon1.ico" type="image/x-icon">
+
+    <!-- Fonts (reduced to 600,700) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+    <!-- Preload the first hero image (adaptive formats, sizes) -->
+    <link rel="preload" as="image"
+        imagesrcset="
+        https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_640,h_360/v1760591339/5a70f674-d9fa-4f32-8f78-524600925732.png 640w,
+        https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1280,h_720/v1760591308/e6b380a4-23ec-4ae2-b07b-67caa7eb471e.png 1280w,
+        https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1920,h_1080/v1760591339/5a70f674-d9fa-4f32-8f78-524600925732.png 1920w"
+        imagesizes="100vw">
+
+
+    <!-- CSS: preload + fast load -->
+    <link rel="preload" href="../css/styles.css" as="style">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <link rel="preload" href="../css/navbar.css" as="style">
+    <!-- non-blocking load for navbar.css -->
+    <link rel="stylesheet" href="../css/navbar.css" media="print" onload="this.media='all'">
+
+    <!-- Tiny JS; defer -->
+    <script defer src="../js/navbar.js"></script>
+    <script defer src="../js/slider.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <!-- Left: Logo -->
+            <a class="logo" href="./index.html" aria-label="NHC INDOCON 2026">
+                <img src="../../public/indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
+                    fetchpriority="high">
+            </a>
+
+            <!-- Center: Nav -->
+            <nav id="nav-menu" class="nav" aria-label="Primary">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="./index.html">Home</a></li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">About</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./about-nhc-indocon.html">About NHC IndoCon</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./about-aosi.html">About AOSI</a></li>
+                            <li role="none"><a role="menuitem" href="./about-indore.html">About Indore</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Committees</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./patrons.html">Patrons</a></li>
+                            <li role="none"><a role="menuitem" href="./organising-committee.html">Organising
+                                    Committee</a></li>
+                            <li role="none"><a role="menuitem" href="./proposed-faculties.html">Proposed Faculties</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./team-mp.html">Team Madhya Pradesh</a></li>
+                            <li role="none"><a role="menuitem" href="./scientific.html">Scientific</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
+                            Program</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./program-overview.html">Overview</a></li>
+                            <li role="none"><a role="menuitem" href="./schedule.html">Schedule</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Venue &
+                            Travel</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./venue.html">Venue</a></li>
+                            <li role="none"><a role="menuitem" href="./travel.html">Travel</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a href="./gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a href="./contact.html">Contact Us</a></li>
+
+                    <!-- Mobile CTA (inside drawer, last) -->
+                    <li class="nav-item nav-cta-mobile">
+                        <a class="btn btn-primary btn-cta" href="./register.html">Register Now</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right: Desktop CTA -->
+            <div class="nav-cta-desktop">
+                <a class="btn btn-primary btn-cta" href="./register.html">Register Now</a>
+            </div>
+
+            <!-- Mobile hamburger -->
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="slider" aria-label="Conference highlights">
+        <div class="slider-viewport" id="slider">
+            <!-- Slide 1 (priority) -->
+            <figure class="slide">
+                <img src="https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1280,h_720/v1760591339/5a70f674-d9fa-4f32-8f78-524600925732.png"
+                    srcset="
+                  https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_640,h_360/v1760591339/5a70f674-d9fa-4f32-8f78-524600925732.png 640w,
+                  https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1280,h_720/v1760591339/5a70f674-d9fa-4f32-8f78-524600925732.png 1280w,
+                  https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1920,h_1080/v1760591339/5a70f674-d9fa-4f32-8f78-524600925732.png 1920w"
+                    sizes="100vw" alt="NHC INDOCON highlight" width="1280" height="720" fetchpriority="high"
+                    decoding="async" draggable="false" />
+                <!-- <figcaption>Optional caption</figcaption> -->
+            </figure>
+
+            <!-- Slide 2 (lazy) -->
+            <figure class="slide">
+                <img src="https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1280,h_720/v1760591308/e6b380a4-23ec-4ae2-b07b-67caa7eb471e.png"
+                    srcset="
+                  https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_640,h_360/v1760591308/e6b380a4-23ec-4ae2-b07b-67caa7eb471e.png 640w,
+                  https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1280,h_720/v1760591308/e6b380a4-23ec-4ae2-b07b-67caa7eb471e.png 1280w,
+                  https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1920,h_1080/v1760591308/e6b380a4-23ec-4ae2-b07b-67caa7eb471e.png 1920w"
+                    sizes="100vw" alt="NHC INDOCON highlight" width="1280" height="720" loading="lazy" decoding="async"
+                    draggable="false" />
+            </figure>
+
+            <!-- Duplicate the slide pattern for more images -->
+        </div>
+
+        <!-- Controls (a11y-friendly) -->
+        <button class="slider-btn prev" type="button" aria-label="Previous slide">‹</button>
+        <button class="slider-btn next" type="button" aria-label="Next slide">›</button>
+
+
+        <!-- Dots (optional) -->
+        <div class="slider-dots" aria-hidden="true"></div>
+    </section>
+
+
+
+
+</body>
+
+
+</html>

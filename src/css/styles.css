@@ -1,0 +1,196 @@
+/* Reset + tokens */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+button {
+  font: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+:root {
+  --bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.72); /* light translucent */
+  --text: #0b1220;
+  --muted: #6b7280;
+  --blue: #1f3e8a; /* deep royal */
+  --blue-2: #244da8; /* gradient end */
+  --border: #e5e7eb;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+  --maxw: 1280px;
+}
+
+html {
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* container */
+.container {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: clamp(12px, 3vw, 24px);
+}
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.08s ease, box-shadow 0.2s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(180deg, var(--blue), var(--blue-2));
+  box-shadow: 0 6px 16px rgba(31, 62, 138, 0.25);
+}
+.btn-primary:hover {
+  box-shadow: 0 10px 24px rgba(31, 62, 138, 0.35);
+}
+.btn-cta {
+  padding: 0 22px;
+}
+
+/* Container with max width; inherits your container if needed */
+.slider {
+  position: relative;
+  margin: 16px auto;
+}
+
+/* Viewport: native scroll snap + momentum scrolling */
+.slider-viewport {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+  background: #f6f7fb;
+}
+
+/* Prevent layout shift with fixed aspect ratio */
+.slide {
+  position: relative;
+  aspect-ratio: 16 / 9; /* adjust if you prefer */
+  margin: 0;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #e9ecf2; /* subtle placeholder */
+  display: block;
+}
+.slide figcaption {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Controls */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  transition: opacity 0.2s ease, transform 0.08s ease;
+}
+.slider-btn:hover {
+  opacity: 0.9;
+}
+.slider-btn:active {
+  transform: translateY(-50%) scale(0.98);
+}
+.slider-btn.prev {
+  left: 8px;
+}
+.slider-btn.next {
+  right: 8px;
+}
+
+/* Dots */
+.slider-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+.slider-dots button {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+.slider-dots button[aria-current="true"] {
+  background: #fff;
+}
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+  .slider {
+    margin: 8px auto;
+  }
+  .slider-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .slider-viewport {
+    scroll-behavior: auto;
+  }
+}

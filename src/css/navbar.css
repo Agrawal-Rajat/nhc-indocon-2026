@@ -1,0 +1,303 @@
+/* Header bar with blur */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* 3 columns: left logo | center nav | right cta */
+.nav-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 70px;
+}
+
+/* Logo */
+.logo img {
+  height: 42px;
+  width: auto;
+}
+
+/* Desktop nav list centered */
+.nav {
+  justify-self: center;
+}
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* tighter spacing */
+}
+.nav-item {
+  position: relative;
+}
+.nav-item a,
+.nav-item .submenu-toggle {
+  padding: 10px 12px; /* compact hit area */
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.nav-item a:hover,
+.nav-item .submenu-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Clean caret for items with submenu */
+.has-submenu > .submenu-toggle::after {
+  content: "";
+  display: inline-block;
+  margin-left: 6px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  width: 6px;
+  height: 6px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg); /* elegant ▼ */
+  opacity: 0.8;
+}
+
+/* Desktop dropdown — centered under parent; stays open while moving */
+.has-submenu .submenu {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% + 12px);
+  display: none;
+  min-width: 220px; /* slimmer */
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+.submenu {
+  list-style: none; /* no bullets anywhere */
+  margin: 0;
+}
+.submenu a {
+  display: block;
+  padding: 8px 10px; /* compact items */
+  border-radius: 8px;
+  font-weight: 600;
+}
+.submenu a:hover {
+  background: #f5f6f8;
+}
+
+/* Hover bridge prevents flicker */
+.has-submenu::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 14px;
+}
+
+/* Keep open when submenu hovered (fallback + modern) */
+.has-submenu:hover .submenu,
+.has-submenu .submenu:hover {
+  display: block;
+}
+@supports (selector(:has(*))) {
+  .has-submenu:has(.submenu:hover) .submenu {
+    display: block;
+  }
+}
+
+/* Desktop CTA right side */
+.nav-cta-desktop .btn-cta {
+  height: 46px;
+}
+
+/* Hide mobile CTA on desktop */
+.nav-cta-mobile .btn-cta {
+  display: none;
+}
+
+/* Hamburger (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  width: 36px;
+  height: 25px;
+  place-items: center;
+  gap: 4px;
+  justify-self: end;
+}
+.nav-toggle .bar {
+  width: 24px;
+  height: 2px;
+  background: #111;
+  display: block;
+  border-radius: 1px;
+}
+
+.site-header .nav {
+  padding: 0;
+}
+
+/* ========== Mobile ========== */
+@media (max-width: 991px) {
+  /* layout: logo left, burger right */
+  .nav-wrap {
+    grid-template-columns: auto 1fr auto;
+  }
+  .logo {
+    justify-self: start;
+  }
+  .nav-cta-desktop {
+    display: none;
+  }
+  .nav-toggle {
+    display: grid;
+    justify-self: end;
+    width: 32px;
+    height: 22px;
+  }
+  .nav-toggle .bar {
+    width: 20px;
+    height: 3px;
+  }
+
+  /* Drawer (no shadow) */
+  .nav {
+    position: fixed;
+    inset: 70px 0 auto 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    width: 100%;
+    z-index: 40;
+  }
+  .nav.is-open {
+    max-height: 85vh;
+  }
+
+  /* --- FULL-BLEED LIST (edge-to-edge rows) --- */
+  .nav-list {
+    width: 100vw; /* span the viewport */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    display: grid;
+    gap: 0;
+    text-align: center;
+  }
+
+  /* remove extra inset on each row */
+  .nav-item {
+    border-bottom: 1px solid #eceff3;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* bigger centered tap targets, no rounded edges */
+  .nav-item a,
+  .nav-item .submenu-toggle {
+    display: block;
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 0;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    background: transparent;
+  }
+
+  /* Submenus flow in document, push items down, no bullets/shadows */
+  .has-submenu .submenu {
+    position: static;
+    transform: none;
+    margin: 0;
+    padding: 0; /* closed = zero space */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.22s ease, padding 0.22s ease;
+    border: 0;
+    box-shadow: none;
+  }
+  .has-submenu.open .submenu {
+    max-height: 800px;
+    padding: 4px 0 8px; /* only when open */
+    background: #f7f8fb;
+  }
+  .submenu li {
+    list-style: none;
+  }
+  .submenu a {
+    border-top: 1px solid #eef1f4;
+    display: block;
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border: 0; /* no dividers */
+    border-radius: 0;
+    background: transparent; /* no shadow boxes */
+  }
+
+  /* smaller hamburger, right-aligned */
+  .nav-toggle {
+    justify-self: end;
+    width: 32px;
+    height: 22px;
+  }
+  .nav-toggle .bar {
+    width: 20px;
+    height: 3px;
+  }
+
+  /* CTA full-width without card look */
+  .nav-cta-mobile .btn-cta {
+    display: block;
+    width: calc(100vw - 32px); /* 16px side inset */
+    margin: 14px auto 16px;
+    height: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    border-radius: 10px;
+    color: #fff !important;
+    background: linear-gradient(180deg, var(--blue), var(--blue-2)) !important;
+    box-shadow: none !important;
+  }
+  .submenu a:first-child {
+    border-top: 0;
+  }
+}
+
+/* Desktop: disable clicks on label (hover-only menus) */
+@media (min-width: 992px) {
+  .has-submenu .submenu-toggle {
+    pointer-events: none;
+  }
+}
+
+/* Ensure list items can't show markers anywhere */
+.nav-list,
+.nav-list li,
+.submenu,
+.submenu li {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Make mobile rows occupy full width so dividers span edge to edge */
+@media (max-width: 991px) {
+  .nav-item {
+    width: 100%;
+  } /* IMPORTANT */
+}
