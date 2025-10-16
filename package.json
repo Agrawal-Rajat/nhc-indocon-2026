@@ -1,0 +1,8 @@
+{
+  "name": "nhc-indocon-2026",
+  "type": "module",
+  "dependencies": {
+    "formidable": "^3.5.4",
+    "googleapis": "^139.0.0"
+  }
+}
