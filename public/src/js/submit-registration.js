@@ -3,7 +3,7 @@
     const form = document.querySelector('form.reg-card__body');
     if (!form) return;
 
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbzasyDHva9DUz0Yp0klNvJbbESb8gX2I0GOXqNUM1jl763WLrRhph7Sj1VSwht0pHr4/exec';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycby5m5G2V2J41X7ykhVmpE6GxJt2hfSbzugZKpknIOdkqRteIOJfJ-KF5AfcVbNXnjSl/exec';
     const btn = form.querySelector('button[type="submit"]');
 
     const setBusy = (b) => { if (btn) { btn.disabled = !!b; btn.textContent = b ? 'Submitting…' : 'Register Now'; } };
