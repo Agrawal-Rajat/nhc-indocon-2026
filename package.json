@@ -2,7 +2,9 @@
   "name": "nhc-indocon-2026",
   "type": "module",
   "dependencies": {
+    "form-data": "^4.0.4",
     "formidable": "^3.5.4",
-    "googleapis": "^139.0.0"
+    "googleapis": "^139.0.0",
+    "node-fetch": "^3.3.2"
   }
 }
