@@ -28,17 +28,17 @@
 
 
     <!-- CSS: preload + fast load -->
-    <link rel="preload" href="../src/css/styles.css" as="style">
-    <link rel="stylesheet" href="../src/css/styles.css">
+    <link rel="preload" href="./src/css/styles.css" as="style">
+    <link rel="stylesheet" href="./src/css/styles.css">
 
-    <link rel="preload" href="../src/css/navbar.css" as="style">
-    <link rel="stylesheet" href="../src/css/footer.css">
+    <link rel="preload" href="./src/css/navbar.css" as="style">
+    <link rel="stylesheet" href="./src/css/footer.css">
     <!-- non-blocking load for navbar.css -->
-    <link rel="stylesheet" href="../src/css/navbar.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="./src/css/navbar.css" media="print" onload="this.media='all'">
 
     <!-- Tiny JS; defer -->
-    <script defer src="../src/js/navbar.js"></script>
-    <script defer src="../src/js/slider.js"></script>
+    <script defer src="./src/js/navbar.js"></script>
+    <script defer src="./src/js/slider.js"></script>
 </head>
 
 <body>
@@ -46,7 +46,7 @@
         <div class="container nav-wrap">
             <!-- Left: Logo -->
             <a class="logo" href="./index.html" aria-label="NHC INDOCON 2026">
-                <img src="../../public/indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
+                <img src="./indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
                     fetchpriority="high">
             </a>
 
