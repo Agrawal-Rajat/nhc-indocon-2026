@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Us - NHC INDOCON 2026</title>
+
+    <!-- Performance for Cloudinary -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="dns-prefetch" href="//res.cloudinary.com">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="preload" href="./src/css/navbar.css" as="style">
+    <link rel="stylesheet" href="./src/css/navbar.css">
+    <link rel="preload" href="./src/css/footer.css" as="style">
+    <link rel="stylesheet" href="./src/css/footer.css">
+
+    <script defer src="./src/js/navbar.js"></script>
+
+    <style>
+        /* Contact Page Styles */
+        .contact-hero {
+            text-align: center;
+            padding: clamp(40px, 8vw, 60px) 0 clamp(24px, 5vw, 40px);
+        }
+
+        .contact-hero h1 {
+            font-size: clamp(1.75rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--blue);
+            margin: 0 0 12px;
+            line-height: 1.2;
+        }
+
+        .contact-hero p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .contact-layout {
+            display: grid;
+            gap: clamp(24px, 4vw, 32px);
+            margin: clamp(32px, 6vw, 40px) 0 clamp(60px, 10vw, 80px);
+        }
+
+        @media (min-width: 768px) {
+            .contact-layout {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Contact Form Card */
+        .contact-form-card {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(20px, 4vw, 40px);
+        }
+
+        .contact-form-card h2 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 8px;
+        }
+
+        .contact-form-card p {
+            color: var(--muted);
+            margin: 0 0 24px;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        .form-group {
+            margin-bottom: clamp(16px, 3vw, 20px);
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-size: clamp(0.875rem, 2vw, 0.9375rem);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: clamp(0.9375rem, 2vw, 1rem);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(31, 62, 138, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: clamp(100px, 20vw, 120px);
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            height: clamp(44px, 8vw, 48px);
+            margin-top: 8px;
+            font-size: clamp(0.9375rem, 2vw, 1rem);
+        }
+
+        /* Contact Info Cards */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(16px, 3vw, 24px);
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(16px, 3vw, 24px);
+            display: flex;
+            gap: clamp(12px, 2.5vw, 16px);
+            align-items: flex-start;
+        }
+
+        .info-icon {
+            flex-shrink: 0;
+            width: clamp(40px, 8vw, 48px);
+            height: clamp(40px, 8vw, 48px);
+            background: linear-gradient(135deg, var(--blue), var(--blue-2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .info-icon svg {
+            width: clamp(20px, 4vw, 24px);
+            height: clamp(20px, 4vw, 24px);
+        }
+
+        .info-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .info-content h3 {
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 4px;
+        }
+
+        .info-content p {
+            color: var(--muted);
+            margin: 0;
+            font-size: clamp(0.875rem, 2vw, 0.9375rem);
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .info-content a {
+            color: var(--blue);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+            word-break: break-all;
+        }
+
+        @media (min-width: 480px) {
+            .info-content a {
+                word-break: normal;
+            }
+        }
+
+        .info-content a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin: clamp(40px, 8vw, 60px) 0 clamp(60px, 10vw, 80px);
+        }
+
+        .map-section h2 {
+            font-size: clamp(1.5rem, 4vw, 1.875rem);
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+            margin: 0 0 clamp(24px, 4vw, 32px);
+        }
+
+        .map-container {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            height: clamp(300px, 60vw, 400px);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            padding: clamp(12px, 2.5vw, 16px);
+            background: #10b981;
+            color: #fff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 767px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .info-card {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <!-- Left: Logo -->
+            <a class="logo" href="./index.html" aria-label="NHC INDOCON 2026">
+                <img src="../../public/indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
+                    fetchpriority="high">
+            </a>
+
+            <!-- Center: Nav -->
+            <nav id="nav-menu" class="nav" aria-label="Primary">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="./index.html">Home</a></li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">About</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./about-nhc-indocon.html">About NHC IndoCon</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./about-aosi.html">About AOSI</a></li>
+                            <li role="none"><a role="menuitem" href="./about-indore.html">About Indore</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Committees</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./patrons.html">Patrons</a></li>
+                            <li role="none"><a role="menuitem" href="./organising-committee.html">Organising
+                                    Committee</a></li>
+                            <li role="none"><a role="menuitem" href="./proposed-faculties.html">Proposed Faculties</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./team-mp.html">Team Madhya Pradesh</a></li>
+                            <li role="none"><a role="menuitem" href="./scientific.html">Scientific</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
+                            Program</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./program-overview.html">Overview</a></li>
+                            <li role="none"><a role="menuitem" href="./schedule.html">Schedule</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Venue &
+                            Travel</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./venue.html">Venue</a></li>
+                            <li role="none"><a role="menuitem" href="./travel.html">Travel</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a href="./gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a href="./contact.html">Contact Us</a></li>
+
+                    <!-- Mobile CTA (inside drawer, last) -->
+                    <li class="nav-item nav-cta-mobile">
+                        <a class="btn btn-primary btn-cta" href="form.html">Register Now</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right: Desktop CTA -->
+            <div class="nav-cta-desktop">
+                <a class="btn btn-primary btn-cta" href="form.html">Register Now</a>
+            </div>
+
+            <!-- Mobile hamburger -->
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="contact-hero">
+            <h1>Get in Touch</h1>
+            <p>Have questions about NHC INDOCON 2026? We'd love to hear from you. Send us a message and we'll respond
+                as soon as possible.</p>
+        </section>
+
+        <!-- Contact Layout -->
+        <div class="contact-layout">
+            <!-- Contact Form -->
+            <div class="contact-form-card">
+                <h2>Send us a Message</h2>
+                <p>Fill out the form below and we'll get back to you shortly.</p>
+
+                <div class="success-message" id="successMessage">
+                    Thank you! Your message has been sent successfully.
+                </div>
+
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number"
+                            pattern="[0-9]{10}" maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="registration">Registration Inquiry</option>
+                            <option value="sponsorship">Sponsorship Opportunity</option>
+                            <option value="accommodation">Accommodation Query</option>
+                            <option value="program">Program Information</option>
+                            <option value="general">General Question</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" placeholder="Type your message here..."
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <p><a href="mailto:info@nhcindocon2026.com">info@nhcindocon2026.com</a></p>
+                        <p><a href="mailto:registration@nhcindocon2026.com">registration@nhcindocon2026.com</a></p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3>Phone</h3>
+                        <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                        <p><a href="tel:+919876543211">+91 98765 43211</a></p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3>Venue Address</h3>
+                        <p>Brilliant Convention Centre<br>
+                            A.B. Road, Near IIM Indore<br>
+                            Indore, Madhya Pradesh 453556<br>
+                            India</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3>Office Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
+                            Saturday: 10:00 AM - 4:00 PM<br>
+                            Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <h2>Find Us on the Map</h2>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.9234!2d75.8577!3d22.6935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQxJzM2LjYiTiA3NcKwNTEnMjcuNyJF!5e0!3m2!1sen!2sin!4v1234567890"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Contact form submission handler
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const successMessage = document.getElementById('successMessage');
+            const formData = new FormData(e.target);
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            try {
+                // Simulate API call - Replace with your actual endpoint
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Show success message
+                successMessage.classList.add('show');
+                e.target.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+
+                console.log('Form submitted:', Object.fromEntries(formData));
+            } catch (error) {
+                alert('Error sending message. Please try again.');
+                console.error('Error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
+</body>
+
+</html>
