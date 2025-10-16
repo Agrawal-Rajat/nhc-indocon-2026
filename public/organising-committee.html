@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Organising Committee - NHC INDOCON 2026</title>
+
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="dns-prefetch" href="//res.cloudinary.com">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="preload" href="./src/css/navbar.css" as="style">
+    <link rel="stylesheet" href="./src/css/navbar.css">
+    <link rel="preload" href="./src/css/footer.css" as="style">
+    <link rel="stylesheet" href="./src/css/footer.css">
+
+    <script defer src="./src/js/navbar.js"></script>
+
+    <style>
+        /* Hero Section */
+        .patrons-hero {
+            text-align: center;
+            padding: clamp(50px, 10vw, 80px) 0 clamp(40px, 8vw, 60px);
+            position: relative;
+        }
+
+        .patrons-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(31, 62, 138, 0.03) 0%, rgba(36, 77, 168, 0.05) 100%);
+            z-index: -1;
+        }
+
+        .patrons-hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--blue), var(--blue-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 16px;
+            line-height: 1.1;
+        }
+
+        .patrons-hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+
+        /* Grid */
+        .patrons-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: clamp(24px, 4vw, 32px);
+            margin: clamp(40px, 6vw, 60px) 0 clamp(60px, 10vw, 100px);
+        }
+
+        @media (min-width: 640px) {
+            .patrons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .patrons-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Card */
+        .patron-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .patron-card:nth-child(1) {
+            animation-delay: .1s;
+        }
+
+        .patron-card:nth-child(2) {
+            animation-delay: .15s;
+        }
+
+        .patron-card:nth-child(3) {
+            animation-delay: .2s;
+        }
+
+        .patron-card:nth-child(4) {
+            animation-delay: .25s;
+        }
+
+        .patron-card:nth-child(5) {
+            animation-delay: .3s;
+        }
+
+        .patron-card:nth-child(6) {
+            animation-delay: .35s;
+        }
+
+        .patron-card:nth-child(7) {
+            animation-delay: .4s;
+        }
+
+        .patron-card:nth-child(8) {
+            animation-delay: .45s;
+        }
+
+        .patron-card:nth-child(9) {
+            animation-delay: .5s;
+        }
+
+        .patron-card:nth-child(10) {
+            animation-delay: .55s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .patron-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(31, 62, 138, 0.15);
+        }
+
+        .patron-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue), var(--blue-2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .patron-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Image */
+        .patron-image {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+        }
+
+        .patron-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .patron-card:hover .patron-image img {
+            transform: scale(1.08);
+        }
+
+        /* Loading shimmer */
+        .patron-image.loading {
+            background: linear-gradient(90deg, #e5e7eb 25%, #d1d5db 50%, #e5e7eb 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Info */
+        .patron-info {
+            padding: clamp(20px, 4vw, 24px);
+            text-align: center;
+        }
+
+        .patron-name {
+            font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        .patron-card:hover .patron-name {
+            color: var(--blue);
+        }
+
+        /* Badge */
+        .patron-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--blue), var(--blue-2));
+            color: #fff;
+            width: clamp(36px, 6vw, 44px);
+            height: clamp(36px, 6vw, 44px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            box-shadow: 0 4px 12px rgba(31, 62, 138, 0.3);
+            z-index: 2;
+            transform: scale(0);
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            animation-delay: calc(var(--delay) + 0.3s);
+        }
+
+        .patron-card:nth-child(1) .patron-badge {
+            --delay: 0.1s;
+        }
+
+        .patron-card:nth-child(2) .patron-badge {
+            --delay: 0.15s;
+        }
+
+        .patron-card:nth-child(3) .patron-badge {
+            --delay: 0.2s;
+        }
+
+        .patron-card:nth-child(4) .patron-badge {
+            --delay: 0.25s;
+        }
+
+        .patron-card:nth-child(5) .patron-badge {
+            --delay: 0.3s;
+        }
+
+        .patron-card:nth-child(6) .patron-badge {
+            --delay: 0.35s;
+        }
+
+        .patron-card:nth-child(7) .patron-badge {
+            --delay: 0.4s;
+        }
+
+        .patron-card:nth-child(8) .patron-badge {
+            --delay: 0.45s;
+        }
+
+        .patron-card:nth-child(9) .patron-badge {
+            --delay: 0.5s;
+        }
+
+        .patron-card:nth-child(10) .patron-badge {
+            --delay: 0.55s;
+        }
+
+        /* Mobile: smaller image, bigger name */
+        @media (max-width: 480px) {
+            .patron-card {
+                max-width: 420px;
+                margin: 0 auto;
+            }
+
+            .patron-image {
+                aspect-ratio: 3/3.5;
+            }
+
+            .patron-name {
+                font-size: 1.15rem;
+            }
+
+            .patron-info {
+                padding: 18px 12px;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+
+            .patron-card,
+            .patron-image img,
+            .patron-badge {
+                animation: none;
+                transition: none;
+            }
+
+            .patron-card {
+                opacity: 1;
+                transform: none;
+            }
+
+            .patron-badge {
+                transform: scale(1);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .patron-card:nth-last-child(2) {
+                grid-column: 2;
+            }
+
+            .patron-card:last-child {
+                grid-column: 3;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="logo" href="index.html" aria-label="NHC INDOCON 2026">
+                <img src="../../public/indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
+                    fetchpriority="high">
+            </a>
+
+            <nav id="nav-menu" class="nav" aria-label="Primary">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html">Home</a></li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">About</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="about-nhc-indocon.html">About NHC IndoCon</a></li>
+                            <li role="none"><a role="menuitem" href="about-aosi.html">About AOSI</a></li>
+                            <li role="none"><a role="menuitem" href="about-indore.html">About Indore</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Committees</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="patrons.html">Patrons</a></li>
+                            <li role="none"><a role="menuitem" href="organising-committee.html">Organising Committee</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="proposed-faculties.html">Proposed Faculties</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="team-mp.html">Team Madhya Pradesh</a></li>
+                            <li role="none"><a role="menuitem" href="scientific.html">Scientific</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
+                            Program</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="program-overview.html">Overview</a></li>
+                            <li role="none"><a role="menuitem" href="schedule.html">Schedule</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Venue &
+                            Travel</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="venue.html">Venue</a></li>
+                            <li role="none"><a role="menuitem" href="travel.html">Travel</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+
+                    <li class="nav-item nav-cta-mobile">
+                        <a class="btn btn-primary btn-cta" href="form.html">Register Now</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="nav-cta-desktop">
+                <a class="btn btn-primary btn-cta" href="form.html">Register Now</a>
+            </div>
+
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="patrons-hero">
+            <h1>Organising Committee</h1>
+            <p>Meet the Organising Committee members for NHC INDOCON 2026.</p>
+        </section>
+
+        <!-- Members Grid -->
+        <div class="patrons-grid" id="patronsGrid"></div>
+    </main>
+
+    <script>
+        // Committee data (name + Cloudinary URL)
+        const patrons = [
+            { name: 'Dr. Arvind Rawal', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643950/49884ffd-e61c-4c7b-8b0c-be46b70a8dc5.png' },
+            { name: 'Dr. Kundan Kushwah', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643960/161dc591-895f-4838-a33e-fcaca9dea13d.png' },
+            { name: 'Dr. Akshay Jain', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643967/7fd8d587-3205-4d33-a493-c5e7b3a33e88.png' },
+            { name: 'Dr. Anurag Panvel', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643974/4502bf0f-d15b-47a9-a4a0-a7390dd7513a.png' },
+            { name: 'Dr. Rahul Mehta', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643982/c02d221f-bbf7-4784-beb9-b27411a4fab1.png' },
+            { name: 'Dr. Vishal Yadav', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643979/1ce3e3e6-0642-4f60-ae8c-7dee6469b570.png' },
+            { name: 'Dr. Anil Pandey', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643992/f756662c-1b45-44be-ac8e-11e8c97dcf1c.png' },
+            { name: 'Dr. Vaibhav Goyal', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643985/775ace98-53fc-4553-84d1-34c0aa81ed84.png' },
+            { name: 'Dr. Mohit Mahoviya', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643997/45cce6cf-46ff-4f43-858a-3cc6fb3d0178.png' },
+            { name: 'Dr. Pushpwardhan Mandlecha', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760644002/ad11479d-795b-4d63-ac3e-72b34097782e.png' }
+        ];
+
+        // Lazy load images with Intersection Observer (with fallback)
+        const lazyLoad = (img, src) => {
+            const setSrc = () => {
+                img.src = src;
+                img.onload = () => img.parentElement.classList.remove('loading');
+            };
+
+            if (!('IntersectionObserver' in window)) {
+                setSrc();
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setSrc();
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '200px', threshold: 0.01 });
+
+            observer.observe(img);
+        };
+
+        // Create cards
+        const patronsGrid = document.getElementById('patronsGrid');
+
+        patrons.forEach((patron, index) => {
+            const card = document.createElement('div');
+            card.className = 'patron-card';
+
+            card.innerHTML = `
+                <div class="patron-image loading">
+                    <div class="patron-badge">${index + 1}</div>
+                    <img src="" alt="${patron.name}" loading="lazy" decoding="async">
+                </div>
+                <div class="patron-info">
+                    <h3 class="patron-name">${patron.name}</h3>
+                </div>
+            `;
+
+            const img = card.querySelector('img');
+
+            // Eager-load the first 4 for immediate visibility
+            if (index < 4) {
+                img.src = patron.image;
+                img.onload = () => img.parentElement.classList.remove('loading');
+            } else {
+                lazyLoad(img, patron.image);
+            }
+
+            patronsGrid.appendChild(card);
+        });
+
+        // Warm cache for the rest (optional)
+        window.addEventListener('load', () => {
+            patrons.slice(4).forEach(p => {
+                const i = new Image();
+                i.src = p.image;
+            });
+        });
+    </script>
+</body>
+
+</html>
