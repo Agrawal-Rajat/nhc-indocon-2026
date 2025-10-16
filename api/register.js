@@ -5,7 +5,7 @@ import fs from 'fs';
 
 export const config = { api: { bodyParser: false } };
 
-// Parse multipart/form-data
+/* ---------- utils ---------- */
 function parseForm(req) {
     const form = formidable({
         multiples: false,
@@ -17,7 +17,6 @@ function parseForm(req) {
     });
 }
 
-// Auth
 function getAuth() {
     const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
     let key = process.env.GOOGLE_PRIVATE_KEY || '';
@@ -29,7 +28,6 @@ function getAuth() {
     ]);
 }
 
-// Normalize a file regardless of how formidable shapes it
 function pickFile(files, key) {
     let f = files?.[key];
     if (!f) return null;
@@ -37,13 +35,13 @@ function pickFile(files, key) {
     return f || null;
 }
 
-// Upload to Drive
+/* ---------- Drive upload (supports Shared Drives) ---------- */
 async function uploadToDrive(drive, folderId, file, fields) {
-    if (!file) return ''; // if you prefer to enforce, throw an error instead
+    if (!file) return '';
+    if (!folderId) throw new Error('ENV: Missing FOLDER_ID');
+
     const filePath = file.filepath || file.path || file.tempFilePath;
-    if (!filePath) {
-        throw new Error('UPLOAD: File path missing (check form enctype and input name="receipt").');
-    }
+    if (!filePath) throw new Error('UPLOAD: File path missing (check enctype and input name="receipt").');
 
     const safeBase = [
         fields.firstName || 'First',
@@ -53,22 +51,25 @@ async function uploadToDrive(drive, folderId, file, fields) {
 
     const created = await drive.files.create({
         requestBody: { name: `${safeBase}_${Date.now()}`, parents: [folderId] },
-        media: {
-            mimeType: file.mimetype || 'application/octet-stream',
-            body: fs.createReadStream(filePath),
-        },
+        media: { mimeType: file.mimetype || 'application/octet-stream', body: fs.createReadStream(filePath) },
         fields: 'id, webViewLink',
+        supportsAllDrives: true, // REQUIRED if folderId is in a Shared Drive (harmless otherwise)
     });
 
-    // Optional: make file public
-    // await drive.permissions.create({ fileId: created.data.id, requestBody: { role: 'reader', type: 'anyone' } });
+    // If you want public view-by-link, uncomment:
+    // await drive.permissions.create({
+    //   fileId: created.data.id,
+    //   requestBody: { role: 'reader', type: 'anyone' },
+    //   supportsAllDrives: true,
+    // });
 
     return created.data.webViewLink || '';
 }
 
-// Append to Sheets
+/* ---------- Sheets append ---------- */
 async function appendToSheet(sheets, sheetId, values) {
-    const RANGE = 'Sheet1!A1'; // change to e.g. 'Registrations!A1' if your tab name differs
+    if (!sheetId) throw new Error('ENV: Missing SHEET_ID');
+    const RANGE = 'Sheet1!A1'; // change if your tab is not 'Sheet1'
     await sheets.spreadsheets.values.append({
         spreadsheetId: sheetId,
         range: RANGE,
@@ -77,8 +78,9 @@ async function appendToSheet(sheets, sheetId, values) {
     });
 }
 
+/* ---------- Handler ---------- */
 export default async function handler(req, res) {
-    // CORS (relax if your form is same-origin already)
+    // CORS (relax if same-origin)
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -87,27 +89,35 @@ export default async function handler(req, res) {
 
     try {
         const { SHEET_ID, FOLDER_ID } = process.env;
-        if (!SHEET_ID || !FOLDER_ID) throw new Error('ENV: Missing SHEET_ID or FOLDER_ID');
+        if (!SHEET_ID) throw new Error('ENV: Missing SHEET_ID');
 
+        // Parse incoming form
         const { fields, files } = await parseForm(req);
 
-        // Ensure the file came through with the right key
-        const receipt = pickFile(files, 'receipt');
-        if (!receipt) {
-            return res.status(400).json({
-                ok: false,
-                error: 'Missing file "receipt". Ensure <input type="file" name="receipt"> and enctype="multipart/form-data".',
-                debug: { fileKeys: Object.keys(files || {}) }
-            });
-        }
+        // 2-step flow: if Apps Script already uploaded the file, we get its URL here
+        const receiptUrl = fields?.receiptUrl ? String(fields.receiptUrl) : '';
 
+        // Auth once
         const auth = getAuth();
         await auth.authorize();
         const drive = google.drive({ version: 'v3', auth });
         const sheets = google.sheets({ version: 'v4', auth });
 
-        const fileUrl = await uploadToDrive(drive, FOLDER_ID, receipt, fields);
+        // If no receiptUrl, try to upload the binary to Drive (Shared Drive supported)
+        let fileUrl = receiptUrl;
+        if (!fileUrl) {
+            const receipt = pickFile(files, 'receipt');
+            if (!receipt) {
+                return res.status(400).json({
+                    ok: false,
+                    error: 'Missing payment file. Provide receiptUrl (2-step) or input name="receipt".',
+                    debug: { fileKeys: Object.keys(files || {}) },
+                });
+            }
+            fileUrl = await uploadToDrive(drive, FOLDER_ID, receipt, fields);
+        }
 
+        // Build the row for Sheets
         const row = [
             new Date().toISOString(),
             fields.title || '',
@@ -138,7 +148,7 @@ export default async function handler(req, res) {
             ok: false,
             error: msg,
             hint:
-                'Check: form enctype, input name="receipt", file size (<10MB), env vars, sheet tab name, and service account access.',
+                'If using personal My Drive, upload via Apps Script and send receiptUrl. For Shared Drives, ensure the folder is in a Shared Drive, the service account has access, and supportsAllDrives=true.',
         });
     }
 }
