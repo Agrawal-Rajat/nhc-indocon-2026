@@ -11,9 +11,6 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const fd = new FormData(form);
-
-        // Convert file to base64 for Google Apps Script
         const fileInput = form.querySelector('input[name="receipt"]');
         const file = fileInput.files[0];
 
@@ -37,26 +34,37 @@
                 reader.readAsDataURL(file);
             });
 
-            // Create URL-encoded form data with base64 file
-            const formData = new FormData();
+            // Create payload object
+            const payload = {
+                title: form.querySelector('[name="title"]').value,
+                firstName: form.querySelector('[name="firstName"]').value,
+                middleName: form.querySelector('[name="middleName"]').value,
+                lastName: form.querySelector('[name="lastName"]').value,
+                phone: form.querySelector('[name="phone"]').value,
+                email: form.querySelector('[name="email"]').value,
+                qualification: form.querySelector('[name="qualification"]').value,
+                designation: form.querySelector('[name="designation"]').value,
+                state: form.querySelector('[name="state"]').value,
+                city: form.querySelector('[name="city"]').value,
+                organization: form.querySelector('[name="organization"]').value,
+                nrCategory: form.querySelector('[name="nrCategory"]').value,
+                accompany: form.querySelector('[name="accompany"]').value,
+                residential_2d1n: form.querySelector('[name="residential_2d1n"]').value,
+                residential_3d2n: form.querySelector('[name="residential_3d2n"]').value,
+                transactionId: form.querySelector('[name="transactionId"]').value,
+                fileData: base64,
+                fileName: file.name,
+                mimeType: file.type
+            };
 
-            // Add all form fields
-            for (const [key, value] of fd.entries()) {
-                if (key !== 'receipt') {
-                    formData.append(key, value);
-                }
-            }
-
-            // Add file data
-            formData.append('receipt', base64);
-            formData.append('receiptName', file.name);
-            formData.append('receiptType', file.type);
-
-            console.log("Submitting with file:", file.name, file.type);
+            console.log("Submitting payload:", { ...payload, fileData: 'BASE64_STRING_HIDDEN' });
 
             const res = await fetch(GAS_URL, {
                 method: "POST",
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ data: JSON.stringify(payload) })
             });
 
             const resultText = await res.text();
@@ -66,7 +74,7 @@
                 alert("Registration submitted successfully! ✅");
                 form.reset();
             } else {
-                alert("Submission completed but please verify: " + resultText);
+                alert("Error: " + resultText);
             }
         } catch (error) {
             console.error("Error:", error);
