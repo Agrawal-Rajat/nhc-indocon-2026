@@ -1,84 +1,44 @@
 // public/assets/js/submit-registration.js
-// 2-step submit:
-// 1) Upload file to Google Apps Script Web App (runs as YOU) → returns { ok, fileUrl }
-// 2) Send all fields + fileUrl to /api/register (Vercel) → appends to Google Sheet
-
 (function () {
     const form = document.querySelector('form.reg-card__body');
     if (!form) return;
 
-    // ⬇️ Replace with your deployed Apps Script Web App URL (Access: "Anyone with the link")
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbzasyDHva9DUz0Yp0klNvJbbESb8gX2I0GOXqNUM1jl763WLrRhph7Sj1VSwht0pHr4/exec';
-
     const btn = form.querySelector('button[type="submit"]');
 
-    const showError = (msg) => {
-        console.error(msg);
-        alert(msg); // swap with custom toast if you prefer
-    };
-
-    const setBusy = (busy) => {
-        if (!btn) return;
-        btn.disabled = !!busy;
-        btn.textContent = busy ? 'Submitting…' : 'Register Now';
-    };
+    const setBusy = (b) => { if (btn) { btn.disabled = !!b; btn.textContent = b ? 'Submitting…' : 'Register Now'; } };
+    const fail = (m) => { console.error(m); alert(m); };
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         setBusy(true);
-
         try {
             const fd = new FormData(form);
-
-            // Basic client-side file checks
             const file = fd.get('receipt');
-            if (!file || (typeof file === 'object' && file.size === 0)) {
-                setBusy(false);
-                return showError('Please attach the payment screenshot/receipt.');
-            }
-            if (file.size > 10 * 1024 * 1024) {
-                setBusy(false);
-                return showError('File is larger than 10MB. Please upload a smaller file.');
-            }
+            if (!file || (typeof file === 'object' && file.size === 0)) { setBusy(false); return fail('Please attach the receipt.'); }
 
-            // 1) Upload to Apps Script (multipart/form-data)
-            const gasResp = await fetch(GAS_URL, {
-                method: 'POST',
-                body: fd,
-                redirect: 'follow',
-                credentials: 'omit',
-            });
+            // 1) Apps Script upload
+            const gasResp = await fetch(GAS_URL, { method: 'POST', body: fd, redirect: 'follow', credentials: 'omit' });
+            const gasText = await gasResp.text();       // 👈 raw text for debugging
+            let gasJson = {};
+            try { gasJson = JSON.parse(gasText); } catch { }
+            console.log('[GAS] status:', gasResp.status, 'text:', gasText); // 👈 check Console
 
-            // If GAS returns HTML (auth page), this parse will fail. Ensure Web App is "Anyone with the link".
-            const gasJson = await gasResp.json().catch(() => ({}));
-            if (!gasResp.ok || !gasJson?.ok) {
-                const msg = gasJson?.error || `Upload failed (status ${gasResp.status})`;
-                throw new Error(msg);
-            }
+            if (!gasResp.ok || !gasJson.ok) throw new Error(gasJson.error || `Upload failed (status ${gasResp.status})`);
             const fileUrl = gasJson.fileUrl;
             if (!fileUrl) throw new Error('Apps Script did not return fileUrl');
 
-            // 2) Post to your Vercel API with URL only (no binary now)
-            fd.delete('receipt');           // remove the large file
+            // 2) Send fields + fileUrl to /api/register
+            fd.delete('receipt');
             fd.append('receiptUrl', fileUrl);
 
-            const apiResp = await fetch('/api/register', {
-                method: 'POST',
-                body: fd,
-                redirect: 'follow',
-                credentials: 'omit',
-            });
+            const apiResp = await fetch('/api/register', { method: 'POST', body: fd });
             const apiJson = await apiResp.json().catch(() => ({}));
-            if (!apiResp.ok || !apiJson?.ok) {
-                const msg = apiJson?.error || `Registration failed (status ${apiResp.status})`;
-                throw new Error(msg);
-            }
+            if (!apiResp.ok || !apiJson.ok) throw new Error(apiJson.error || `Registration failed (status ${apiResp.status})`);
 
-            // 3) Success — redirect to a Thank You page
             window.location.href = '/thank-you.html';
-
         } catch (err) {
-            showError('Sorry, there was a problem: ' + (err?.message || err));
+            fail('Sorry, there was a problem: ' + (err?.message || err));
             setBusy(false);
         }
     });
