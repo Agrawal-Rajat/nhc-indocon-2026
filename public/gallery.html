@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gallery - NHC INDOCON 2026</title>
+
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="dns-prefetch" href="//res.cloudinary.com">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="preload" href="./src/css/navbar.css" as="style">
+    <link rel="stylesheet" href="./src/css/navbar.css">
+    <link rel="preload" href="./src/css/footer.css" as="style">
+    <link rel="stylesheet" href="./src/css/footer.css">
+
+    <script defer src="./src/js/navbar.js"></script>
+
+    <style>
+        /* Gallery Styles */
+        .gallery-hero {
+            text-align: center;
+            padding: clamp(40px, 8vw, 60px) 0 clamp(24px, 5vw, 40px);
+        }
+
+        .gallery-hero h1 {
+            font-size: clamp(1.75rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--blue);
+            margin: 0 0 12px;
+            line-height: 1.2;
+        }
+
+        .gallery-hero p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin: clamp(40px, 6vw, 60px) 0;
+        }
+
+        .gallery-section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 clamp(24px, 4vw, 32px);
+            text-align: center;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            gap: clamp(8px, 1.5vw, 12px);
+            grid-template-columns: repeat(2, 1fr);
+            margin-bottom: clamp(60px, 10vw, 80px);
+        }
+
+        @media (min-width: 640px) {
+            .bento-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Gallery Item */
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #e5e7eb;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Larger items for visual interest */
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        @media (min-width: 640px) {
+            .gallery-item:nth-child(5) {
+                grid-column: span 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-item:nth-child(7) {
+                grid-column: span 2;
+            }
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Loading skeleton */
+        .gallery-item.loading {
+            background: linear-gradient(90deg, #e5e7eb 25%, #d1d5db 50%, #e5e7eb 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            min-height: 200px;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Team Grid - 2 columns on mobile, 4 on desktop */
+        .team-grid {
+            display: grid;
+            gap: clamp(8px, 1.5vw, 12px);
+            grid-template-columns: repeat(2, 1fr);
+            margin-bottom: clamp(60px, 10vw, 80px);
+        }
+
+        @media (min-width: 1024px) {
+            .team-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .team-grid .gallery-item {
+            aspect-ratio: 4/3;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px;
+            line-height: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            opacity: 0.7;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 20px 15px;
+            line-height: 1;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .lightbox-nav {
+                padding: 15px 10px;
+                font-size: 1.5rem;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+
+            .lightbox-close {
+                top: -35px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Image counter */
+        .lightbox-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="logo" href="./index.html" aria-label="NHC INDOCON 2026">
+                <img src="../../public/indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
+                    fetchpriority="high">
+            </a>
+
+            <nav id="nav-menu" class="nav" aria-label="Primary">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="./index.html">Home</a></li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">About</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./about-nhc-indocon.html">About NHC IndoCon</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./about-aosi.html">About AOSI</a></li>
+                            <li role="none"><a role="menuitem" href="./about-indore.html">About Indore</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Committees</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./patrons.html">Patrons</a></li>
+                            <li role="none"><a role="menuitem" href="./organising-committee.html">Organising
+                                    Committee</a></li>
+                            <li role="none"><a role="menuitem" href="./proposed-faculties.html">Proposed Faculties</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="./team-mp.html">Team Madhya Pradesh</a></li>
+                            <li role="none"><a role="menuitem" href="./scientific.html">Scientific</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
+                            Program</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./program-overview.html">Overview</a></li>
+                            <li role="none"><a role="menuitem" href="./schedule.html">Schedule</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Venue &
+                            Travel</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="./venue.html">Venue</a></li>
+                            <li role="none"><a role="menuitem" href="./travel.html">Travel</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a href="./gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a href="./contact.html">Contact Us</a></li>
+
+                    <li class="nav-item nav-cta-mobile">
+                        <a class="btn btn-primary btn-cta" href="/src/pages/form.html">Register Now</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="nav-cta-desktop">
+                <a class="btn btn-primary btn-cta" href="/src/pages/form.html">Register Now</a>
+            </div>
+
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="gallery-hero">
+            <h1>Event Gallery</h1>
+            <p>Explore memorable moments from our events, conferences, and team activities that showcase the spirit of
+                NHC INDOCON.</p>
+        </section>
+
+        <!-- Gallery Section 1 -->
+        <section class="gallery-section">
+            <h2 class="gallery-section-title">Highlights From Our Journey</h2>
+            <div class="bento-grid" id="highlightsGrid"></div>
+        </section>
+
+        <!-- Gallery Section 2 -->
+        <section class="gallery-section">
+            <h2 class="gallery-section-title">Team Work in Motion for 3rd NHC Indocon 2026</h2>
+            <div class="team-grid" id="teamGrid"></div>
+        </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&lt;</button>
+            <img src="" alt="Gallery image" id="lightboxImg">
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">&gt;</button>
+            <div class="lightbox-counter" id="lightboxCounter"></div>
+        </div>
+    </div>
+
+    <script>
+        // Gallery images with optimized Cloudinary transformations
+        const highlightsImages = [
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641393/561e2a7e-1063-492e-8e21-ac926279ae2d.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641428/8c0e904c-203b-404a-8680-0ae2ab4a2637.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641415/c90add90-0d0c-407a-b1cc-8fa1dab4a608.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641466/660cc041-5f2a-4297-aa07-96b3b542e99b.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641443/2aae2f1c-ae0d-460e-a21d-f0d429258116.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641488/d256de9e-9ed9-48a1-959f-0d6b9f85b28f.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641480/6df60829-e885-4616-89b1-ce9db3ba00db.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641506/922083b1-8700-40d0-867f-4bfa0a070754.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641499/3ad7152a-87e5-4227-aba8-6a1dc3949bc9.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641515/f0d328b2-5d91-4d40-ad07-c487b786be59.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_1:1,g_auto/v1760641511/64eb8960-ec13-4fda-9b51-f0ddcfcaba7e.png'
+        ];
+
+        const teamImages = [
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_4:3,g_auto/v1760641612/b8821afe-8120-4872-a4a1-3c1344de9cf1.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_4:3,g_auto/v1760641637/81c3ca68-bd8e-4ed9-9ed5-871aae5d881e.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_4:3,g_auto/v1760641663/82fd95fe-0024-4677-8d95-cd96583dcf12.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_600,c_fill,ar_4:3,g_auto/v1760641694/fb2843b3-3eb7-41f9-a96f-f69377bb373d.png'
+        ];
+
+        // Full resolution images for lightbox
+        const highlightsFullRes = [
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641393/561e2a7e-1063-492e-8e21-ac926279ae2d.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641428/8c0e904c-203b-404a-8680-0ae2ab4a2637.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641415/c90add90-0d0c-407a-b1cc-8fa1dab4a608.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641466/660cc041-5f2a-4297-aa07-96b3b542e99b.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641443/2aae2f1c-ae0d-460e-a21d-f0d429258116.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641488/d256de9e-9ed9-48a1-959f-0d6b9f85b28f.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641480/6df60829-e885-4616-89b1-ce9db3ba00db.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641506/922083b1-8700-40d0-867f-4bfa0a070754.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641499/3ad7152a-87e5-4227-aba8-6a1dc3949bc9.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641515/f0d328b2-5d91-4d40-ad07-c487b786be59.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641511/64eb8960-ec13-4fda-9b51-f0ddcfcaba7e.png'
+        ];
+
+        const teamFullRes = [
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641612/b8821afe-8120-4872-a4a1-3c1344de9cf1.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641637/81c3ca68-bd8e-4ed9-9ed5-871aae5d881e.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641663/82fd95fe-0024-4677-8d95-cd96583dcf12.png',
+            'https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,w_1920,c_limit/v1760641694/fb2843b3-3eb7-41f9-a96f-f69377bb373d.png'
+        ];
+
+        let currentImages = [];
+        let currentIndex = 0;
+
+        // Lazy load images with Intersection Observer
+        const lazyLoad = (img, src) => {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const image = entry.target;
+                        image.src = src;
+                        image.onload = () => {
+                            image.parentElement.classList.remove('loading');
+                        };
+                        obs.unobserve(image);
+                    }
+                });
+            }, {
+                rootMargin: '50px'
+            });
+            observer.observe(img);
+        };
+
+        // Create gallery items
+        function createGalleryItem(src, index, section) {
+            const item = document.createElement('div');
+            item.className = 'gallery-item loading';
+
+            const img = document.createElement('img');
+            img.alt = `Gallery image ${index + 1}`;
+            img.loading = 'lazy';
+            img.decoding = 'async';
+
+            item.appendChild(img);
+            item.addEventListener('click', () => openLightbox(index, section));
+
+            // Use Intersection Observer for lazy loading
+            lazyLoad(img, src);
+
+            return item;
+        }
+
+        // Populate galleries
+        const highlightsGrid = document.getElementById('highlightsGrid');
+        const teamGrid = document.getElementById('teamGrid');
+
+        highlightsImages.forEach((src, i) => {
+            highlightsGrid.appendChild(createGalleryItem(src, i, 'highlights'));
+        });
+
+        teamImages.forEach((src, i) => {
+            teamGrid.appendChild(createGalleryItem(src, i, 'team'));
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+
+        function openLightbox(index, section) {
+            currentImages = section === 'highlights' ? highlightsFullRes : teamFullRes;
+            currentIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            lightboxImg.src = currentImages[currentIndex];
+            lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+        }
+
+        function navigate(direction) {
+            currentIndex = (currentIndex + direction + currentImages.length) % currentImages.length;
+            updateLightbox();
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => navigate(-1));
+        lightboxNext.addEventListener('click', () => navigate(1));
+
+        // Close on background click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+
+        // Preload first few images
+        window.addEventListener('load', () => {
+            highlightsImages.slice(0, 3).forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        });
+    </script>
+</body>
+
+</html>
