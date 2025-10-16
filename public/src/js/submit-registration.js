@@ -6,7 +6,7 @@
     if (!form) return;
 
     const submitBtn = form.querySelector('[type="submit"]');
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbw6VnErhKLx6L_P6IZ1KDIxc2dJLyj0dfSLgVE9TIeAYNtb9ROSD3Rs_5skJEIBsn-n/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxz9tFd5hSETMCL2VS8sD7WKPvq-Q5O98l9I2582yEFDXVdGIRpuXvouZY3gz0CNy1d0g/exec";
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
