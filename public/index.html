@@ -30,6 +30,8 @@
     <!-- CSS: preload + fast load -->
     <link rel="preload" href="./src/css/styles.css" as="style">
     <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="./src/css/hero.css">
+
 
     <link rel="preload" href="./src/css/navbar.css" as="style">
     <!-- <link rel="stylesheet" href="./src/css/footer.css"> -->
@@ -117,6 +119,48 @@
             </button>
         </div>
     </header>
+
+    <!-- Hero Slider -->
+    <section class="nhc-hero" aria-label="NHC INDOCON Highlights">
+        <div class="nhc-hero-inner">
+            <div class="nhc-hero-track" id="nhcHeroTrack" aria-live="polite"></div>
+
+            <!-- Overlay content -->
+            <div class="nhc-hero-overlay">
+                <div class="nhc-hero-meta">
+                    <span class="nhc-hero-pill">INDOCON 2026 • Indore</span>
+                    <h1 class="nhc-hero-title">Advancing Orthopaedic Excellence</h1>
+                    <p class="nhc-hero-sub">Join top national & international faculties for 3 days of workshops &
+                        sessions.
+                    </p>
+                    <div class="nhc-hero-ctas">
+                        <a class="nhc-hero-btn nhc-hero-btn--solid" href="form.html">Register Now</a>
+                        <a class="nhc-hero-btn nhc-hero-btn--ghost" href="program-overview.html">View Program</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <button class="nhc-hero-nav nhc-hero-prev" aria-label="Previous slide">‹</button>
+            <button class="nhc-hero-nav nhc-hero-next" aria-label="Next slide">›</button>
+
+            <div class="nhc-hero-dots" id="nhcHeroDots" role="tablist" aria-label="Slide dots"></div>
+        </div>
+    </section>
+
+    <!-- Preload the first hero image (fast LCP) -->
+    <link rel="preload" as="image"
+        href="https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1600/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png"
+        imagesrcset="
+            https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_480/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png 480w,
+            https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_768/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png 768w,
+            https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1200/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png 1200w,
+            https://res.cloudinary.com/de0rdsbph/image/upload/f_auto,q_auto,dpr_auto,c_fill,g_auto,w_1600/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png 1600w
+          " imagesizes="100vw">
+
+
+
+
 
 
 

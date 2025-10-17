@@ -1,0 +1,240 @@
+/* ===== NHC Hero (scoped, no collisions) ===== */
+.nhc-hero {
+  --h-pad: clamp(14px, 2vw, 24px);
+  --h-radius: 18px;
+  --h-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --h-grad: linear-gradient(
+    180deg,
+    rgba(7, 13, 35, 0.6) 0%,
+    rgba(7, 13, 35, 0.25) 30%,
+    rgba(7, 13, 35, 0.55) 100%
+  );
+  position: relative;
+  isolation: isolate;
+  margin: 0; /* sit under navbar */
+}
+.nhc-hero-inner {
+  position: relative;
+  width: min(1400px, 96vw);
+  margin: clamp(8px, 2vw, 18px) auto;
+  border-radius: var(--h-radius);
+  overflow: hidden; /* clip everything cleanly */
+  box-shadow: var(--h-shadow);
+  background: #0b1c4a; /* fallback while first image loads */
+}
+
+/* Track = viewport & clipper */
+.nhc-hero-track {
+  position: relative;
+  height: clamp(56vh, 70vh, 78vh);
+  min-height: 420px;
+  overflow: hidden; /* important */
+}
+
+/* Strip = wide row of slides that moves */
+.nhc-hero-strip {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  will-change: transform;
+}
+
+/* Slides occupy 100% width inside strip */
+.nhc-hero-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #091534; /* fallback while img decodes */
+}
+.nhc-hero-picture,
+.nhc-hero-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.nhc-hero-img {
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 1.2s ease;
+}
+.nhc-hero-slide.is-active .nhc-hero-img {
+  transform: scale(1);
+}
+
+/* Fancy overlay */
+.nhc-hero-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: var(--h-grad);
+  display: grid;
+  align-items: end;
+  z-index: 2; /* above slides */
+}
+.nhc-hero-meta {
+  pointer-events: auto;
+  padding: clamp(16px, 3vw, 32px) clamp(18px, 3vw, 36px);
+  color: #fff;
+  max-width: 820px;
+}
+.nhc-hero-pill {
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+.nhc-hero-title {
+  margin: 0.6rem 0 0.3rem;
+  line-height: 1.1;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #cfe2ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nhc-hero-sub {
+  margin: 0 0 0.9rem;
+  color: #e6edff;
+  opacity: 0.92;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+}
+
+/* CTAs */
+.nhc-hero-ctas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.nhc-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    color 0.2s ease;
+}
+.nhc-hero-btn--solid {
+  background: linear-gradient(90deg, #1d4ed8, #2847d9);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(29, 78, 216, 0.35);
+}
+.nhc-hero-btn--solid:hover {
+  transform: translateY(-2px);
+}
+.nhc-hero-btn--ghost {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+}
+.nhc-hero-btn--ghost:hover {
+  transform: translateY(-2px);
+}
+
+/* Controls */
+.nhc-hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 28px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, opacity 0.2s ease;
+  z-index: 3; /* above overlay */
+}
+.nhc-hero-prev {
+  left: var(--h-pad);
+}
+.nhc-hero-next {
+  right: var(--h-pad);
+}
+.nhc-hero-nav:hover {
+  transform: translateY(-50%) scale(1.05);
+  background: rgba(0, 0, 0, 0.4);
+}
+@media (max-width: 640px) {
+  .nhc-hero-nav {
+    display: none;
+  }
+}
+
+/* Dots */
+.nhc-hero-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+.nhc-hero-dot {
+  display: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.nhc-hero-dot.is-active {
+  background: #fff;
+  transform: scale(1.2);
+}
+
+/* Placeholder shimmer while img decodes */
+.nhc-hero-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: nhcShimmer 1.3s infinite;
+  z-index: 0;
+}
+.nhc-hero-slide.is-ready::before {
+  display: none;
+}
+@keyframes nhcShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .nhc-hero-img {
+    transition: none;
+    transform: none !important;
+  }
+}
