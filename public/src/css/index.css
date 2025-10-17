@@ -245,6 +245,7 @@
 }
 .sig-photo {
   position: relative;
+  transform: scale(0.85);
   width: min(320px, 75vw);
   aspect-ratio: 1/0.82;
   overflow: hidden;
@@ -341,6 +342,8 @@
 .sched-tl {
   position: relative;
   isolation: isolate;
+  padding-bottom: 0; /* remove extra bottom space */
+  margin-bottom: 2rem;
 }
 
 /* Banner with wave cut */
@@ -350,7 +353,7 @@
 }
 .schedtl-hero img {
   width: 100%;
-  height: clamp(42vh, 58vh, 66vh);
+  height: clamp(36vh, 52vh, 60vh); /* tightened from 42/58/66 */
   object-fit: cover;
   display: block;
   filter: contrast(1.02) saturate(1.02);
@@ -398,7 +401,7 @@
   left: 0;
   right: 0;
   bottom: -1px;
-  height: 70px;
+  height: 44px; /* tightened from 70px */
   background: #f7faff;
   -webkit-clip-path: path(
     "M0,40 C200,0 400,80 640,40 C880,0 1080,80 1280,40 C1480,0 1680,80 1920,40 L1920,100 L0,100 Z"
@@ -417,13 +420,11 @@
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(16px, 4vw, 32px);
 }
-@media (max-width: 860px) {
-  .schedtl-wrap {
-    grid-template-columns: 1fr;
-  }
+.sched-tl > *:last-child {
+  margin-bottom: 0;
 }
 
-/* baseline */
+/* baseline (global) */
 .schedtl-line {
   position: absolute;
   left: 0;
@@ -434,28 +435,12 @@
   border-radius: 999px;
   opacity: 0.6;
 }
-@media (max-width: 860px) {
-  .schedtl-line {
-    left: 20px;
-    right: auto;
-    width: 2px;
-    top: 0;
-    bottom: 0;
-    height: auto;
-    background: linear-gradient(#cfe0ff, #a8c2ff);
-  }
-}
 
 /* each stop */
 .schedtl-stop {
   position: relative;
   padding-left: 0;
   color: #0b1c4a;
-}
-@media (max-width: 860px) {
-  .schedtl-stop {
-    padding-left: 44px;
-  }
 }
 
 .schedtl-dot {
@@ -467,12 +452,6 @@
   box-shadow: 0 0 0 6px rgba(29, 78, 216, 0.15);
   top: calc(50% - 7px);
   left: -7px;
-}
-@media (max-width: 860px) {
-  .schedtl-dot {
-    top: 10px;
-    left: 13px;
-  }
 }
 
 .schedtl-head {
@@ -507,7 +486,6 @@
   font-weight: 800;
   color: #123b7a;
   text-decoration: none;
-  /* border-bottom: 2px solid rgba(18, 59, 122, 0.25); */
   padding-bottom: 2px;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
@@ -527,194 +505,57 @@
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* ==== Desktop alignment fixes for Wave + Timeline ==== */
-@media (min-width: 861px) {
-  /* Use a flex row so both stops share the same middle */
+/* ======= Mobile (<=860px): vertical timeline intact ======= */
+@media (max-width: 860px) {
   .schedtl-wrap {
-    display: flex; /* replaces grid on desktop */
-    align-items: center; /* centers each stop vertically */
-    gap: clamp(16px, 4vw, 32px);
-    min-height: 220px; /* ensures a nice middle line */
+    grid-template-columns: 1fr;
   }
 
-  /* Middle baseline stays exactly at center of the wrapper */
   .schedtl-line {
-    top: 50%;
-    bottom: auto;
-    height: 2px;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-  }
-
-  /* Each stop is same height and content centered */
-  .schedtl-stop {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* centers text vertically */
-    padding: 20px 0; /* breathing space around line */
-    position: relative; /* keep dot positioned to this card */
-    text-align: center; /* matches the banner’s feel */
-  }
-
-  /* Dot sits exactly on the middle line, centered for each stop */
-  .schedtl-dot {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* perfectly centered on baseline */
-    box-shadow: 0 0 0 8px rgba(29, 78, 216, 0.12); /* a tad larger ring on desktop */
-  }
-
-  /* Tidy up typography on desktop */
-  .schedtl-head {
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 12px;
-  }
-}
-/* === Fix desktop alignment: per-card baseline + centered dot === */
-@media (min-width: 861px) {
-  /* stop using the single global line */
-  .schedtl-line {
-    display: none !important;
-  }
-
-  /* two equal columns again */
-  .schedtl-wrap {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(16px, 4vw, 32px);
-    align-items: start;
-  }
-
-  /* each stop draws its own baseline */
-  .schedtl-stop {
-    position: relative;
-    text-align: center;
-    padding-bottom: 28px; /* room for the line + dot */
-    margin-bottom: 6px;
-  }
-  .schedtl-stop::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
+    left: 20px;
+    right: auto;
+    width: 2px;
+    top: 0;
     bottom: 0;
-    height: 2px;
-    background: #cfe0ff; /* thin baseline under the content */
-    border-radius: 999px;
+    height: auto;
+    background: linear-gradient(#cfe0ff, #a8c2ff);
+    display: block;
   }
 
-  /* the dot sits exactly in the middle of that line */
-  .schedtl-dot {
-    position: absolute;
-    bottom: -7px; /* half the dot height */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #1d4ed8, #2847d9);
-    box-shadow: 0 0 0 6px rgba(29, 78, 216, 0.14);
-  }
-
-  /* tidy type spacing */
-  .schedtl-head {
-    justify-content: center;
-    gap: 12px;
-  }
-  .schedtl-venue {
-    margin-top: 6px;
-  }
-}
-
-/* ==== FINAL DESKTOP RULES (861px+) — per-card baseline, centered dot ==== */
-@media (min-width: 861px) {
-  /* Kill the global mid-line */
-  .schedtl-line {
-    display: none !important;
-  }
-
-  /* 2 equal columns */
-  .schedtl-wrap {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(16px, 4vw, 32px);
-    align-items: start;
-  }
-
-  /* Each stop draws its own baseline below its content */
   .schedtl-stop {
-    position: relative !important;
-    text-align: center;
-    padding-left: 0 !important; /* reset any mobile left padding */
-    padding-bottom: 34px; /* space for baseline + dot */
-    margin-bottom: 6px;
-  }
-  .schedtl-stop::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    background: #cfe0ff;
-    border-radius: 999px;
+    padding-left: 44px;
   }
 
-  /* Dot centered on that local baseline (RESET any previous top/left) */
   .schedtl-dot {
-    position: absolute;
-    top: auto !important; /* clear earlier desktop/mobile rules */
-    left: 50% !important; /* center horizontally */
-    right: auto !important;
-    bottom: -7px !important; /* sit on the line */
-    transform: translateX(-50%) !important;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #1d4ed8, #2847d9);
-    box-shadow: 0 0 0 6px rgba(29, 78, 216, 0.14);
-  }
-
-  /* Neat, consistent headings */
-  .schedtl-head {
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: nowrap;
-  }
-  .schedtl-venue {
-    margin-top: 6px;
+    top: 10px;
+    left: 13px;
+    display: block;
   }
 }
-/* == DESKTOP RESET: Remove timeline features == */
+
+/* ======= Desktop (>=861px): clean 2-col, no timeline chrome ======= */
 @media (min-width: 861px) {
-  /* Hide the timeline baseline and dots */
+  /* Hide baseline & dots for a neat card layout */
   .schedtl-line,
-  .schedtl-dot {
+  .schedtl-dot,
+  .schedtl-stop::after {
     display: none !important;
   }
 
-  /* Convert to a clean 2-column layout */
   .schedtl-wrap {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: clamp(24px, 4vw, 40px);
+    gap: clamp(20px, 3vw, 40px);
     align-items: start;
     justify-items: center;
+    margin: clamp(12px, 3vw, 28px) auto 0; /* tighten spacing; no big bottom gap */
   }
 
-  /* Clean layout for each stop */
   .schedtl-stop {
     padding: 0 !important;
     margin: 0 !important;
     text-align: center !important;
     border: none !important;
-  }
-
-  .schedtl-stop::after {
-    display: none !important;
   }
 }
 
@@ -737,6 +578,8 @@
       transparent 60%
     ),
     linear-gradient(180deg, #fbfdff 0%, #f6f9ff 100%);
+  padding-top: 3rem;
+  padding-bottom: 2rem;
 }
 .kfrail-wrap {
   width: min(1200px, 92vw);

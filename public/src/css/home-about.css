@@ -109,3 +109,13 @@
     transition: none !important;
   }
 }
+#hx-about-title .highlight-number {
+  font-size: 2.2rem; /* Bigger size */
+  font-weight: 700; /* Bold */
+  color: #1d4ed8; /* Highlight color (blue) */
+}
+
+#hx-about-title {
+  font-size: 1.8rem; /* Main title size */
+  font-weight: 600;
+}
