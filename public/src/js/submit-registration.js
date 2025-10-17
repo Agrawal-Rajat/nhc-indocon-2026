@@ -15,12 +15,25 @@
         const file = fileInput.files[0];
 
         if (!file) {
-            alert("Please upload a payment receipt!");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Receipt Required',
+                text: 'Please upload a payment receipt to continue.'
+            });
             return;
         }
 
         submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting...";
+
+        // Show loader using SweetAlert2
+        Swal.fire({
+            title: 'Submitting...',
+            text: 'Please wait while we process your registration.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
 
         try {
             // Convert file to base64
@@ -71,17 +84,28 @@
             console.log("Response:", resultText);
 
             if (resultText.includes("Success")) {
-                alert("Registration submitted successfully! ✅");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registration Successful!',
+                    text: 'Thank you! Your registration has been submitted. Our Team will contact you soon.',
+                    confirmButtonText: 'OK'
+                });
                 form.reset();
             } else {
-                alert("Error: " + resultText);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Submission Failed!',
+                    text: resultText
+                });
             }
         } catch (error) {
-            console.error("Error:", error);
-            alert("Error submitting form: " + error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error Occurred',
+                text: error.message
+            });
         } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = "Register Now";
         }
     });
 })();

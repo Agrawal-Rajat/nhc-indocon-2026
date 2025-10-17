@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="./src/css/footer.css">
     <script defer src="./src/js/navbar.js"></script>
     <script src="./src/js/submit-registration.js" defer></script>
+    <!-- Add this in <head> or before closing </body> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -211,10 +214,14 @@
                             <span>Category</span>
                             <select name="nrCategory">
                                 <option value="" selected>Nil</option>
-                                <option value="cadaveric">Cadaveric Workshop</option>
-                                <option value="conference">Conference Only</option>
-                                <option value="student">Student / Resident</option>
-                                <option value="industry">Industry Delegate</option>
+                                <option value="cadaveric">Deligate:- ₹9000 + 1620 (18% GST) + Incidental Charges Rs1000
+                                    Extra = Rs 11620</option>
+                                <option value="conference">PG Students:- ₹5000+ 900(18% GST) + Incidental Charges Rs1000
+                                    Extra = Rs 6900</option>
+                                <option value="student">Faculty:- ₹9000+ 1620(18% GST) + Incidental Charges Rs1000 Extra
+                                    = Rs 11620</option>
+                                <option value="industry">Cadeveric Workshop:- ₹50000 + 9000(18% GST) + Incidental
+                                    Charges Rs1000 Extra = Rs 60000</option>
                             </select>
 
                             <p class="reg-note">
@@ -230,6 +237,9 @@
                             <span>Accompanying Person</span>
                             <select name="accompany">
                                 <option value="" selected>Nil</option>
+                                <option value="single">₹6500 + 1080(18% GST) + Incidental Charges Rs1000 Extra = Rs 8080
+                                </option>
+
                             </select>
                         </label>
                     </div>
@@ -244,9 +254,12 @@
                             <span>2 Days / 1 Night (24–25 Jan 2026) <em class="reg-muted">(till 31st Oct)</em></span>
                             <select name="residential_2d1n">
                                 <option value="" selected>Nil</option>
-                                <option value="single">Single Occupancy</option>
-                                <option value="double">Double Occupancy</option>
-                                <option value="twin">Twin Sharing</option>
+                                <option value="single">Delegate (Twin Sharing): ₹14500 + 2610 (18% GST) + Incidental
+                                    Charges Rs1000 Extra = Rs 18110</option>
+                                <option value="double">Delegate (Single Occupancy): ₹20000 + 3600 (18% GST) + Incidental
+                                    Charges Rs1000 Extra = Rs 24600</option>
+                                <option value="twin">Accompanying Person: ₹10,050 + 1809 (18% GST) + Incidental Charges
+                                    Rs1000 Extra = Rs 12859</option>
                             </select>
                         </label>
 
@@ -254,9 +267,12 @@
                             <span>3 Days / 2 Nights (23–25 Jan 2026)</span>
                             <select name="residential_3d2n">
                                 <option value="" selected>Nil</option>
-                                <option value="single">Single Occupancy</option>
-                                <option value="double">Double Occupancy</option>
-                                <option value="twin">Twin Sharing</option>
+                                <option value="single">Delegate (Twin Sharing): ₹20000 + 3600 (18% GST) + Incidental
+                                    Charges Rs1000 Extra = Rs 24600</option>
+                                <option value="double">Delegate (Single Occupancy): ₹31000 + 5580(18% GST) + Incidental
+                                    Charges Rs1000 Extra = Rs 37580</option>
+                                <option value="twin">Accompanying Person: ₹15000 + 2700(18% GST) + Incidental Charges
+                                    Rs1000 Extra = Rs 18700</option>
                             </select>
                         </label>
                     </div>
