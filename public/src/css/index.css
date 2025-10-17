@@ -1,0 +1,719 @@
+/* ===== Leadership Duo (replica style) ===== */
+.duo {
+  --duo-blue: #0b66d6;
+  --duo-blue2: #0a5ed0;
+  --duo-ink: #0b1c4a;
+  --duo-muted: #4a5a79;
+  padding: clamp(20px, 4vw, 48px) 0;
+  background: radial-gradient(
+      1100px 500px at 12% -12%,
+      rgba(11, 102, 214, 0.06),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 420px at 88% -10%,
+      rgba(10, 94, 208, 0.06),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #f8fbff 0%, #f2f6ff 100%);
+}
+.duo-wrap {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 22px);
+  grid-template-columns: 1fr auto 1fr;
+}
+
+/* Center title with lines */
+.duo-center {
+  text-align: center;
+}
+.duo-title {
+  margin: 0;
+  color: #123b7a;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  line-height: 1.02;
+  font-size: clamp(1.6rem, 4.6vw, 2.6rem);
+}
+.duo-topline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(1rem, 2.1vw, 1.15rem);
+  font-weight: 800;
+  color: #123b7a;
+  position: relative;
+}
+.duo-topline::before,
+.duo-topline::after {
+  content: "";
+  height: 3px;
+  width: clamp(40px, 8vw, 90px);
+  background: #3c82e6;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+/* Cards */
+.duo-card {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.duo-photo {
+  position: relative;
+  width: min(320px, 62vw);
+  aspect-ratio: 1/1.02;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0a89e6, #006bd6);
+  /* approximate the inner-rounded shape with asymmetric radii */
+  border-radius: 84px 24px 84px 24px; /* left default */
+  box-shadow: 0 16px 40px rgba(11, 102, 214, 0.18);
+}
+.duo-photo--right {
+  border-radius: 24px 84px 24px 84px;
+} /* mirror shape */
+
+.duo-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+/* Captions */
+.duo-meta {
+  text-align: left;
+  width: 100%;
+  max-width: min(320px, 62vw);
+}
+.duo-name {
+  margin: 0.2rem 0 0;
+  color: #123b7a;
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+}
+.duo-role {
+  margin: 0.1rem 0 0;
+  color: #50618a;
+  font-size: clamp(0.95rem, 2.3vw, 1.05rem);
+}
+
+/* Reveal */
+.duo-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.duo.in-view .duo-reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.duo-card.duo-reveal {
+  transition-delay: 0.06s;
+}
+.duo-center.duo-reveal {
+  transition-delay: 0.02s;
+}
+
+/* Responsive stack */
+@media (max-width: 900px) {
+  .duo-wrap {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .duo-meta {
+    text-align: center;
+    margin-inline: auto;
+  }
+  .duo-center {
+    order: -1;
+  }
+  .duo-photo {
+    width: min(380px, 78vw);
+  }
+}
+
+/* ===== Organising Team Message (scoped) ===== */
+.msg {
+  --m-blue1: #1d4ed8;
+  --m-blue2: #2847d9;
+  --m-ink: #0b1c4a;
+  --m-muted: #4c5a78;
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: clamp(24px, 5vw, 60px) 0;
+  /* light textured paper with brand wash */
+  background: radial-gradient(
+      1100px 500px at 10% -12%,
+      rgba(29, 78, 216, 0.06),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 420px at 90% -10%,
+      rgba(40, 71, 217, 0.06),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #f9fbff 0%, #f3f7ff 100%);
+}
+.msg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 26px 26px;
+  opacity: 0.22;
+}
+
+.msg-wrap {
+  width: min(1100px, 92vw);
+  margin-inline: auto;
+  color: #0b1c4a;
+}
+
+/* Header */
+.msg-head {
+  text-align: center;
+}
+.msg-head h2 {
+  margin: 0 0 6px;
+  font-weight: 900;
+  line-height: 1.06;
+  font-size: clamp(1.6rem, 4.8vw, 2.6rem);
+  color: var(--m-ink);
+}
+.msg-sub {
+  margin: 0 0 10px;
+  color: #29406b;
+  opacity: 0.9;
+  font-size: clamp(1rem, 2vw, 1.08rem);
+}
+.msg-rule {
+  display: inline-block;
+  width: 140px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--m-blue1), var(--m-blue2));
+}
+
+/* Message card */
+.msg-card {
+  margin: clamp(16px, 3vw, 24px) auto 0;
+  width: min(1000px, 100%);
+  background: #fff;
+  border-radius: 16px;
+  padding: clamp(16px, 4vw, 26px);
+  box-shadow: 0 14px 48px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(11, 28, 74, 0.06);
+}
+.msg-body p {
+  margin: 0 0 12px;
+  line-height: 1.7;
+  font-size: clamp(1rem, 2vw, 1.08rem);
+  color: #0e1730;
+}
+.msg-body strong {
+  font-weight: 800;
+  color: #0b1c4a;
+}
+
+/* Signatories row */
+.msg-signatories {
+  display: grid;
+  gap: clamp(14px, 2.6vw, 24px);
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  justify-items: center;
+  margin-top: clamp(10px, 2.6vw, 18px);
+}
+@media (max-width: 800px) {
+  .msg-signatories {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sig {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.sig-photo {
+  position: relative;
+  width: min(320px, 75vw);
+  aspect-ratio: 1/0.82;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0a89e6, #006bd6);
+  border-radius: 80px 26px 26px 26px; /* left default */
+  box-shadow: 0 16px 40px rgba(29, 78, 216, 0.18);
+}
+.sig-photo--right {
+  border-radius: 26px 80px 26px 26px;
+} /* mirrored */
+.sig-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+.sig-meta {
+  text-align: center;
+}
+.sig-name {
+  margin: 0.2rem 0 0;
+  font-weight: 800;
+  color: #123b7a;
+  font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+}
+.sig-role {
+  margin: 0.1rem 0 0;
+  color: #50618a;
+  font-size: clamp(0.95rem, 2.3vw, 1.05rem);
+}
+
+/* Reveal */
+.msg-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.msg.in-view .msg-reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.msg-head.msg-reveal {
+  transition-delay: 0.03s;
+}
+.msg-card.msg-reveal {
+  transition-delay: 0.08s;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .msg-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* --- Fix: center photos on mobile --- */
+@media (max-width: 900px) {
+  .msg-signatories {
+    justify-items: center;
+  } /* grid centers items */
+  .sig,
+  .sig-photo {
+    margin-inline: auto;
+  } /* hard-center each figure */
+  .sig-photo {
+    width: min(360px, 86vw);
+    aspect-ratio: 1 / 1;
+  } /* square on mobile */
+}
+
+/* --- Fix: increase image height on desktop (portrait) --- */
+@media (min-width: 901px) {
+  .sig-photo {
+    width: 320px; /* consistent width */
+    aspect-ratio: 3 / 4; /* taller portrait (height > width) */
+  }
+}
+
+/* Keep images filling the shaped frame cleanly */
+.sig-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* no distortion */
+  border-radius: inherit;
+}
+
+/* ===== Banner + Dates & Venues — Modern, flat ===== */
+/* ===== Banner + Dates (Wave + Timeline) ===== */
+.sched-tl {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Banner with wave cut */
+.schedtl-hero {
+  position: relative;
+  margin: 0;
+}
+.schedtl-hero img {
+  width: 100%;
+  height: clamp(42vh, 58vh, 66vh);
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.02) saturate(1.02);
+}
+.schedtl-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 13, 35, 0.45) 0%,
+    rgba(7, 13, 35, 0.28) 50%,
+    rgba(7, 13, 35, 0.55) 100%
+  );
+}
+.schedtl-kicker {
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  padding: 0.36rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+.schedtl-overlay h2 {
+  margin: 0.55rem 0 0;
+  font-weight: 900;
+  line-height: 1.06;
+  font-size: clamp(1.7rem, 5vw, 2.8rem);
+  background: linear-gradient(135deg, #fff, #d9e6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* wave mask at bottom */
+.schedtl-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 70px;
+  background: #f7faff;
+  -webkit-clip-path: path(
+    "M0,40 C200,0 400,80 640,40 C880,0 1080,80 1280,40 C1480,0 1680,80 1920,40 L1920,100 L0,100 Z"
+  );
+  clip-path: path(
+    "M0,40 C200,0 400,80 640,40 C880,0 1080,80 1280,40 C1480,0 1680,80 1920,40 L1920,100 L0,100 Z"
+  );
+}
+
+/* Timeline wrapper */
+.schedtl-wrap {
+  width: min(1100px, 92vw);
+  margin: clamp(18px, 5vw, 44px) auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(16px, 4vw, 32px);
+}
+@media (max-width: 860px) {
+  .schedtl-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* baseline */
+.schedtl-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 1px);
+  height: 2px;
+  background: linear-gradient(90deg, #cfe0ff, #a8c2ff);
+  border-radius: 999px;
+  opacity: 0.6;
+}
+@media (max-width: 860px) {
+  .schedtl-line {
+    left: 20px;
+    right: auto;
+    width: 2px;
+    top: 0;
+    bottom: 0;
+    height: auto;
+    background: linear-gradient(#cfe0ff, #a8c2ff);
+  }
+}
+
+/* each stop */
+.schedtl-stop {
+  position: relative;
+  padding-left: 0;
+  color: #0b1c4a;
+}
+@media (max-width: 860px) {
+  .schedtl-stop {
+    padding-left: 44px;
+  }
+}
+
+.schedtl-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #1d4ed8, #2847d9);
+  box-shadow: 0 0 0 6px rgba(29, 78, 216, 0.15);
+  top: calc(50% - 7px);
+  left: -7px;
+}
+@media (max-width: 860px) {
+  .schedtl-dot {
+    top: 10px;
+    left: 13px;
+  }
+}
+
+.schedtl-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.schedtl-head h3 {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  line-height: 1.1;
+  font-size: clamp(1.25rem, 3.2vw, 1.6rem);
+  color: #0b1c4a;
+}
+.schedtl-head time {
+  color: #4360a0;
+  font-weight: 800;
+  font-size: clamp(1rem, 2.2vw, 1.06rem);
+}
+
+.schedtl-venue {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: clamp(1rem, 2vw, 1.06rem);
+}
+
+.schedtl-link {
+  margin-top: 8px;
+  display: inline-block;
+  font-weight: 800;
+  color: #123b7a;
+  text-decoration: none;
+  /* border-bottom: 2px solid rgba(18, 59, 122, 0.25); */
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.schedtl-link:hover {
+  border-color: #123b7a;
+  transform: translateY(-1px);
+}
+
+/* reveal */
+.schedtl-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.sched-tl.in-view .schedtl-reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* ==== Desktop alignment fixes for Wave + Timeline ==== */
+@media (min-width: 861px) {
+  /* Use a flex row so both stops share the same middle */
+  .schedtl-wrap {
+    display: flex; /* replaces grid on desktop */
+    align-items: center; /* centers each stop vertically */
+    gap: clamp(16px, 4vw, 32px);
+    min-height: 220px; /* ensures a nice middle line */
+  }
+
+  /* Middle baseline stays exactly at center of the wrapper */
+  .schedtl-line {
+    top: 50%;
+    bottom: auto;
+    height: 2px;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+  }
+
+  /* Each stop is same height and content centered */
+  .schedtl-stop {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centers text vertically */
+    padding: 20px 0; /* breathing space around line */
+    position: relative; /* keep dot positioned to this card */
+    text-align: center; /* matches the banner’s feel */
+  }
+
+  /* Dot sits exactly on the middle line, centered for each stop */
+  .schedtl-dot {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* perfectly centered on baseline */
+    box-shadow: 0 0 0 8px rgba(29, 78, 216, 0.12); /* a tad larger ring on desktop */
+  }
+
+  /* Tidy up typography on desktop */
+  .schedtl-head {
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+}
+/* === Fix desktop alignment: per-card baseline + centered dot === */
+@media (min-width: 861px) {
+  /* stop using the single global line */
+  .schedtl-line {
+    display: none !important;
+  }
+
+  /* two equal columns again */
+  .schedtl-wrap {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 4vw, 32px);
+    align-items: start;
+  }
+
+  /* each stop draws its own baseline */
+  .schedtl-stop {
+    position: relative;
+    text-align: center;
+    padding-bottom: 28px; /* room for the line + dot */
+    margin-bottom: 6px;
+  }
+  .schedtl-stop::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #cfe0ff; /* thin baseline under the content */
+    border-radius: 999px;
+  }
+
+  /* the dot sits exactly in the middle of that line */
+  .schedtl-dot {
+    position: absolute;
+    bottom: -7px; /* half the dot height */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #1d4ed8, #2847d9);
+    box-shadow: 0 0 0 6px rgba(29, 78, 216, 0.14);
+  }
+
+  /* tidy type spacing */
+  .schedtl-head {
+    justify-content: center;
+    gap: 12px;
+  }
+  .schedtl-venue {
+    margin-top: 6px;
+  }
+}
+
+/* ==== FINAL DESKTOP RULES (861px+) — per-card baseline, centered dot ==== */
+@media (min-width: 861px) {
+  /* Kill the global mid-line */
+  .schedtl-line {
+    display: none !important;
+  }
+
+  /* 2 equal columns */
+  .schedtl-wrap {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 4vw, 32px);
+    align-items: start;
+  }
+
+  /* Each stop draws its own baseline below its content */
+  .schedtl-stop {
+    position: relative !important;
+    text-align: center;
+    padding-left: 0 !important; /* reset any mobile left padding */
+    padding-bottom: 34px; /* space for baseline + dot */
+    margin-bottom: 6px;
+  }
+  .schedtl-stop::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #cfe0ff;
+    border-radius: 999px;
+  }
+
+  /* Dot centered on that local baseline (RESET any previous top/left) */
+  .schedtl-dot {
+    position: absolute;
+    top: auto !important; /* clear earlier desktop/mobile rules */
+    left: 50% !important; /* center horizontally */
+    right: auto !important;
+    bottom: -7px !important; /* sit on the line */
+    transform: translateX(-50%) !important;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #1d4ed8, #2847d9);
+    box-shadow: 0 0 0 6px rgba(29, 78, 216, 0.14);
+  }
+
+  /* Neat, consistent headings */
+  .schedtl-head {
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  .schedtl-venue {
+    margin-top: 6px;
+  }
+}
+/* == DESKTOP RESET: Remove timeline features == */
+@media (min-width: 861px) {
+  /* Hide the timeline baseline and dots */
+  .schedtl-line,
+  .schedtl-dot {
+    display: none !important;
+  }
+
+  /* Convert to a clean 2-column layout */
+  .schedtl-wrap {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: clamp(24px, 4vw, 40px);
+    align-items: start;
+    justify-items: center;
+  }
+
+  /* Clean layout for each stop */
+  .schedtl-stop {
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    border: none !important;
+  }
+
+  .schedtl-stop::after {
+    display: none !important;
+  }
+}

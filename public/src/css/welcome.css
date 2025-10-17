@@ -1,0 +1,159 @@
+/* ===== Welcome Message – Aurora Mesh (scoped) ===== */
+.wm2 {
+  --ink: #0b1220;
+  --muted: #6b7280;
+  --indigo: #3557ff;
+  --blue: #1d8fff;
+  --cyan: #18e0ff;
+  --violet: #7b61ff;
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: clamp(36px, 6vw, 80px) 0;
+  /* Aurora mesh background (no images) */
+  background: radial-gradient(
+      60% 80% at 10% -10%,
+      rgba(27, 142, 255, 0.28),
+      transparent 60%
+    ),
+    radial-gradient(
+      70% 80% at 110% 0%,
+      rgba(123, 97, 255, 0.22),
+      transparent 60%
+    ),
+    conic-gradient(
+      from 180deg at 50% -10%,
+      rgba(24, 224, 255, 0.18),
+      transparent 180deg
+    ),
+    linear-gradient(180deg, #04060f 0%, #0a1024 100%);
+}
+.wm2::before {
+  /* soft diagonal lines */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0 2px,
+    transparent 2px 18px
+  );
+  opacity: 0.25;
+}
+.wm2::after {
+  /* vignette */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 50% 50%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+.wm2-wrap {
+  width: min(1100px, 92vw);
+  margin-inline: auto;
+  color: #fff;
+}
+
+/* Heading */
+.wm2-heading {
+  text-align: center;
+  margin-bottom: clamp(16px, 3.5vw, 28px);
+}
+.wm2-eyebrow {
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: #e6efff;
+  opacity: 0.95;
+  padding: 0.38rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(3px);
+}
+.wm2-heading h2 {
+  margin: 0.6rem 0 0;
+  line-height: 1.06;
+  font-weight: 900;
+  font-size: clamp(1.7rem, 5.2vw, 2.7rem);
+  background: linear-gradient(120deg, #fff, #d9e7ff 60%, #b8f0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card with gradient frame (not glass) */
+.wm2-card {
+  margin: clamp(18px, 3.4vw, 30px) auto 0;
+  width: min(980px, 100%);
+  background: linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, rgba(53, 87, 255, 0.8), rgba(24, 224, 255, 0.8))
+      border-box;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+}
+.wm2-card-body {
+  padding: clamp(18px, 4.2vw, 30px);
+  color: var(--ink);
+}
+.wm2-card p {
+  margin: 0 0 12px;
+  line-height: 1.7;
+  font-size: clamp(1rem, 2.1vw, 1.08rem);
+  color: #0e1730;
+}
+.wm2-card p:last-child {
+  margin-bottom: 0;
+}
+.wm2-card strong {
+  font-weight: 900;
+  color: #091537;
+}
+.wm2-card em {
+  color: var(--muted);
+}
+
+/* Reveal animation */
+.wm2-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.wm2.in-view .wm2-reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.wm2-heading.wm2-reveal {
+  transition-delay: 0.05s;
+}
+.wm2-card.wm2-reveal {
+  transition-delay: 0.12s;
+}
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+  .wm2-card {
+    border-radius: 14px;
+  }
+  .wm2-eyebrow {
+    font-size: 0.72rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .wm2-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

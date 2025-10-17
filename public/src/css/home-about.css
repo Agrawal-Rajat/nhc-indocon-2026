@@ -1,0 +1,111 @@
+/* ===== About (split layout) – simple & scoped ===== */
+.hx-about {
+  --hx-blue1: #1d4ed8;
+  --hx-blue2: #2847d9;
+  --hx-text: #0b1220;
+  --hx-muted: #465169;
+  width: min(1200px, 92vw);
+  margin: clamp(18px, 4vw, 36px) auto;
+}
+.hx-about-wrap {
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .hx-about-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Image */
+.hx-media {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.hx-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Content */
+.hx-content {
+  color: var(--hx-text);
+}
+.hx-head {
+  margin: 0 0 8px;
+}
+.hx-kicker {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hx-blue1);
+  font-weight: 700;
+}
+.hx-head h2 {
+  margin: 0;
+  line-height: 1.15;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 4.4vw, 2.4rem);
+  color: #0b1c4a;
+}
+
+/* Copy rhythm (tight, consistent) */
+.hx-copy p {
+  margin: 10px 0;
+  line-height: 1.65;
+  font-size: clamp(1rem, 2vw, 1.06rem);
+  color: #0f172a;
+}
+.hx-points {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.hx-points li {
+  position: relative;
+  padding-left: 18px;
+  margin: 8px 0;
+  color: #142033;
+  font-size: clamp(1rem, 2vw, 1.04rem);
+}
+.hx-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--hx-blue1), var(--hx-blue2));
+}
+
+/* Minimal AOS (no parallax, no emojis) */
+.hx-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.hx-about.in-view .hx-reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.hx-head.hx-reveal {
+  transition-delay: 0.05s;
+}
+.hx-copy.hx-reveal {
+  transition-delay: 0.12s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hx-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
