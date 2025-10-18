@@ -345,3 +345,49 @@ textarea:focus {
     transition: none !important;
   }
 }
+/* Summary box beside bank details */
+.reg-pay {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 900px) {
+  .reg-pay {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.reg-summary {
+  margin: 1rem 0 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 1rem;
+  background: #fafafa;
+}
+.reg-summary__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.reg-summary__rows {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+.reg-summary__row,
+.reg-summary__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.reg-summary__total {
+  border-top: 1px dashed #ddd;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  font-size: 1.15rem;
+}
+.reg-summary__note {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}

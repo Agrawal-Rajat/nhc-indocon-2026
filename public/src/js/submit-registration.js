@@ -87,7 +87,10 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Registration Successful!',
-                    text: 'Thank you! Your registration has been submitted. Our Team will contact you soon.',
+                    text: `Thank you for registering for the 3rd NHC IndoCon!
+
+Your form has been submitted successfully.
+A confirmation email with participation and conference details will be shared with you shortly.`,
                     confirmButtonText: 'OK'
                 });
                 form.reset();
@@ -108,4 +111,63 @@
             submitBtn.disabled = false;
         }
     });
+})();
+
+// --- Live Total Calculator ---
+(function () {
+    const selects = [
+        document.getElementById('nrCategory'),
+        document.getElementById('accompany'),
+        document.getElementById('residential_2d1n'),
+        document.getElementById('residential_3d2n'),
+    ].filter(Boolean);
+
+    const elSubtotal = document.getElementById('sum-subtotal');
+    const elGST = document.getElementById('sum-gst');
+    const elInc = document.getElementById('sum-incidental');
+    const elTotal = document.getElementById('sum-total');
+
+    function parseMoney(attr) {
+        const val = Number(attr || 0);
+        return Number.isFinite(val) ? val : 0;
+    }
+
+    function formatINR(n) {
+        return '₹' + n.toLocaleString('en-IN');
+    }
+
+    function calc() {
+        let subtotal = 0;
+        let gst = 0;
+
+        // If user selects any residential plan, we will ignore Non-Residential category
+        const r2 = document.getElementById('residential_2d1n');
+        const r3 = document.getElementById('residential_3d2n');
+        const hasResidential = (r2 && r2.value) || (r3 && r3.value);
+
+        selects.forEach(sel => {
+            if (!sel || !sel.value) return;
+
+            // Skip NR category if residential chosen
+            if (hasResidential && sel.id === 'nrCategory') return;
+
+            const opt = sel.options[sel.selectedIndex];
+            const base = parseMoney(opt.getAttribute('data-base'));
+            const gstVal = parseMoney(opt.getAttribute('data-gst'));
+            subtotal += base;
+            gst += gstVal;
+        });
+
+        const incidental = (subtotal + gst) > 0 ? 1000 : 0;
+        const grand = subtotal + gst + incidental;
+
+        elSubtotal.textContent = formatINR(subtotal);
+        elGST.textContent = formatINR(gst);
+        elInc.textContent = formatINR(incidental);
+        elTotal.textContent = formatINR(grand);
+    }
+
+    selects.forEach(sel => sel && sel.addEventListener('change', calc));
+    // Run once on load
+    calc();
 })();

@@ -205,6 +205,7 @@
                     </div>
                 </fieldset>
 
+
                 <!-- Non-Residential -->
                 <fieldset class="reg-section">
                     <legend>Registration (Non-Residential Packages)</legend>
@@ -212,38 +213,37 @@
                     <div class="reg-grid reg-g2">
                         <label class="reg-control">
                             <span>Category</span>
-                            <select name="nrCategory">
+                            <select name="nrCategory" id="nrCategory">
                                 <option value="" selected>Nil</option>
-                                <option value="cadaveric">Deligate:- ₹9000 + 1620 (18% GST) + Incidental Charges Rs1000
-                                    Extra = Rs 11620</option>
-                                <option value="conference">PG Students:- ₹5000+ 900(18% GST) + Incidental Charges Rs1000
-                                    Extra = Rs 6900</option>
-                                <option value="student">Faculty:- ₹9000+ 1620(18% GST) + Incidental Charges Rs1000 Extra
-                                    = Rs 11620</option>
-                                <option value="industry">Cadeveric Workshop:- ₹50000 + 9000(18% GST) + Incidental
-                                    Charges Rs1000 Extra = Rs 60000</option>
+                                <!-- data-base is the pre-GST price; data-gst is exact GST to avoid rounding issues -->
+                                <option value="delegate" data-base="9000" data-gst="1620">Delegate: ₹9000 + ₹1620 GST
+                                </option>
+                                <option value="pg" data-base="5000" data-gst="900">PG Student: ₹5000 + ₹900 GST</option>
+                                <option value="faculty" data-base="9000" data-gst="1620">Faculty: ₹9000 + ₹1620 GST
+                                </option>
+                                <option value="workshop" data-base="50000" data-gst="9000">Cadaveric Workshop: ₹50000 +
+                                    ₹9000 GST
+                                </option>
                             </select>
 
-                            <p class="reg-note">
-                                Cadaveric Workshop – ₹50,000 + 18% GST + ₹1,000 incidental charges
-                            </p>
-                            <p class="reg-help">
-                                Includes: 3 nights stay at Brilliant Convention Centre, Indore / Cadaveric workshop /
-                                Conference Registration
-                            </p>
+                            <p class="reg-note">Cadaveric Workshop fee excludes accommodation.</p>
+                            <p class="reg-help">Non-residential options cover registration only.</p>
                         </label>
 
                         <label class="reg-control">
-                            <span>Accompanying Person</span>
-                            <select name="accompany">
+                            <span>Accompanying Person (Non-Residential)</span>
+                            <select name="accompany" id="accompany">
                                 <option value="" selected>Nil</option>
-                                <option value="single">₹6500 + 1080(18% GST) + Incidental Charges Rs1000 Extra = Rs 8080
+                                <!-- Original label said 1080 GST; using that to match your figures -->
+                                <option value="accompany-nr" data-base="6500" data-gst="1080">Accompanying Person: ₹6500
+                                    + ₹1080 GST
                                 </option>
-
                             </select>
                         </label>
                     </div>
                 </fieldset>
+
+
 
                 <!-- Residential -->
                 <fieldset class="reg-section">
@@ -252,42 +252,52 @@
                     <div class="reg-grid reg-g2">
                         <label class="reg-control">
                             <span>2 Days / 1 Night (24–25 Jan 2026) <em class="reg-muted">(till 31st Oct)</em></span>
-                            <select name="residential_2d1n">
+                            <select name="residential_2d1n" id="residential_2d1n">
                                 <option value="" selected>Nil</option>
-                                <option value="single">Delegate (Twin Sharing): ₹14500 + 2610 (18% GST) + Incidental
-                                    Charges Rs1000 Extra = Rs 18110</option>
-                                <option value="double">Delegate (Single Occupancy): ₹20000 + 3600 (18% GST) + Incidental
-                                    Charges Rs1000 Extra = Rs 24600</option>
-                                <option value="twin">Accompanying Person: ₹10,050 + 1809 (18% GST) + Incidental Charges
-                                    Rs1000 Extra = Rs 12859</option>
+                                <option value="r-2d1n-twin" data-base="14500" data-gst="2610">Delegate (Twin Sharing):
+                                    ₹14500 + ₹2610
+                                    GST</option>
+                                <option value="r-2d1n-single" data-base="20000" data-gst="3600">Delegate (Single
+                                    Occupancy): ₹20000 +
+                                    ₹3600 GST</option>
+                                <option value="r-2d1n-accomp" data-base="10050" data-gst="1809">Accompanying Person:
+                                    ₹10050 + ₹1809 GST
+                                </option>
                             </select>
                         </label>
 
                         <label class="reg-control">
                             <span>3 Days / 2 Nights (23–25 Jan 2026)</span>
-                            <select name="residential_3d2n">
+                            <select name="residential_3d2n" id="residential_3d2n">
                                 <option value="" selected>Nil</option>
-                                <option value="single">Delegate (Twin Sharing): ₹20000 + 3600 (18% GST) + Incidental
-                                    Charges Rs1000 Extra = Rs 24600</option>
-                                <option value="double">Delegate (Single Occupancy): ₹31000 + 5580(18% GST) + Incidental
-                                    Charges Rs1000 Extra = Rs 37580</option>
-                                <option value="twin">Accompanying Person: ₹15000 + 2700(18% GST) + Incidental Charges
-                                    Rs1000 Extra = Rs 18700</option>
+                                <option value="r-3d2n-twin" data-base="20000" data-gst="3600">Delegate (Twin Sharing):
+                                    ₹20000 + ₹3600
+                                    GST</option>
+                                <option value="r-3d2n-single" data-base="31000" data-gst="5580">Delegate (Single
+                                    Occupancy): ₹31000 +
+                                    ₹5580 GST</option>
+                                <option value="r-3d2n-accomp" data-base="15000" data-gst="2700">Accompanying Person:
+                                    ₹15000 + ₹2700 GST
+                                </option>
                             </select>
                         </label>
                     </div>
                 </fieldset>
 
+
+                <!-- Payment -->
                 <!-- Payment -->
                 <fieldset class="reg-section" id="payment">
                     <legend>Payment</legend>
 
                     <div class="reg-pay">
+                        <!-- QR -->
                         <div class="reg-qr">
                             <img src="https://res.cloudinary.com/de0rdsbph/image/upload/v1760609834/bc51b379-bdab-4caf-99ad-6e9473a5a760.png"
                                 alt="Scan to pay QR" width="600" height="600" loading="lazy" decoding="async" />
                         </div>
 
+                        <!-- Bank + Summary side -->
                         <div class="reg-bank">
                             <ul class="reg-banklist">
                                 <li><b>Account Name</b><span>ASSOCIATION OF ORTHOPAEDIC SURGEON, INDORE</span></li>
@@ -295,14 +305,39 @@
                                 <li><b>IFSC</b><span>SBIN0030359</span></li>
                                 <li><b>Bank & Branch</b><span>SBI, M.Y. HOSPITAL CAMPUS, INDORE - 452001</span></li>
                                 <li><b>Account Type</b><span>Current Account</span></li>
-                                <!-- UPI optional — not available, so omitted -->
                             </ul>
+
+                            <!-- LIVE TOTAL SUMMARY -->
+                            <aside class="reg-summary" aria-live="polite" aria-atomic="true">
+                                <h3 class="reg-summary__title">Your Total</h3>
+
+                                <div class="reg-summary__rows">
+                                    <div class="reg-summary__row"><span>Subtotal</span><strong
+                                            id="sum-subtotal">₹0</strong></div>
+                                    <div class="reg-summary__row"><span>GST (as listed)</span><strong
+                                            id="sum-gst">₹0</strong></div>
+                                    <div class="reg-summary__row"><span>Incidental (final)</span><strong
+                                            id="sum-incidental">₹0</strong>
+                                    </div>
+                                </div>
+
+                                <div class="reg-summary__total">
+                                    <span>Grand Total</span><strong id="sum-total">₹0</strong>
+                                </div>
+
+                                <p class="reg-summary__note">The incidental charge (₹1000) is added here once any paid
+                                    option is
+                                    selected.</p>
+                            </aside>
+
                             <p class="reg-contact">For any assistance, contact: <b>+91 91312 87820</b></p>
                             <p class="reg-help">Scan the QR or use the bank details to pay. Keep your
-                                Transaction/Reference ID ready.</p>
+                                Transaction/Reference ID ready.
+                            </p>
                         </div>
                     </div>
                 </fieldset>
+
 
                 <!-- Transaction + Upload -->
                 <div class="reg-grid reg-g2 reg-section">

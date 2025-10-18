@@ -90,7 +90,7 @@
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(4px);
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 .nhc-hero-title {
   margin: 0.6rem 0 0.3rem;
@@ -148,7 +148,7 @@
 /* Controls */
 .nhc-hero-nav {
   position: absolute;
-  top: 50%;
+  top: 45%;
   transform: translateY(-50%);
   width: 46px;
   height: 46px;
