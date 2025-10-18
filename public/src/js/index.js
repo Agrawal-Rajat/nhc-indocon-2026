@@ -49,7 +49,7 @@
     const data = [
         { name: 'Dr. Arvind Rawal', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643950/49884ffd-e61c-4c7b-8b0c-be46b70a8dc5.png' },
         { name: 'Dr. Kundan Kushwah', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643960/161dc591-895f-4838-a33e-fcaca9dea13d.png' },
-        { name: 'Dr. Akshay Jain', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643967/7fd8d587-3205-4d33-a493-c5e7b3a33e88.png' },
+        { name: 'Dr. Akshay Jain', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760797185/169ddd9e-9a2c-4b55-ae99-b7ac2e82bc7c.png' },
         { name: 'Dr. Anurag Panvel', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643974/4502bf0f-d15b-47a9-a4a0-a7390dd7513a.png' },
         { name: 'Dr. Rahul Mehta', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643982/c02d221f-bbf7-4784-beb9-b27411a4fab1.png' },
         { name: 'Dr. Vishal Yadav', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643979/1ce3e3e6-0642-4f60-ae8c-7dee6469b570.png' },
