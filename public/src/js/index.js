@@ -109,3 +109,105 @@
     window.addEventListener('mousemove', (e) => { if (!isDown) return; viewport.scrollLeft = startLeft - (e.pageX - startX); });
 
 })();
+
+(function () {
+    const slider = document.querySelector('.cityshow-slider');
+    if (!slider) return;
+
+    const viewport = slider.querySelector('.cityshow-viewport');
+    const track = slider.querySelector('.cityshow-track');
+    const slides = Array.from(track.children);
+    const prevBtn = slider.querySelector('.cityshow-prev');
+    const nextBtn = slider.querySelector('.cityshow-next');
+    const dotsWrap = slider.querySelector('.cityshow-dots');
+
+    let index = 0;                // current first-visible slide
+    let slidesPerView = 1;        // 1 / 2 / 3
+    let slideW = 0;               // px
+    let gapPx = 0;                // px
+    let maxIndex = 0;             // last valid position
+    let autoplayTimer = null;
+    const interval = +slider.dataset.interval || 3500;
+    const autoplay = slider.dataset.autoplay === 'true' &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function buildDots() {
+        dotsWrap.innerHTML = '';
+        const positions = maxIndex + 1; // each click position has its own dot
+        for (let i = 0; i < positions; i++) {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.setAttribute('role', 'tab');
+            b.addEventListener('click', () => { stop(); goTo(i); start(); });
+            dotsWrap.appendChild(b);
+        }
+    }
+
+    function measure() {
+        const vw = viewport.clientWidth;
+        slidesPerView = vw >= 1024 ? 3 : (vw >= 640 ? 2 : 1);
+        const style = getComputedStyle(track);
+        gapPx = parseFloat(style.gap) || 0;
+
+        // width of one slide (accounting for gap between visible slides)
+        slideW = (vw - gapPx * (slidesPerView - 1)) / slidesPerView;
+        track.style.setProperty('--slide-w', slideW + 'px');
+
+        // last valid index so we never scroll into empty space
+        maxIndex = Math.max(0, slides.length - slidesPerView);
+
+        // rebuild dots for the new number of positions
+        buildDots();
+
+        // ensure current index is valid after resize
+        if (index > maxIndex) index = maxIndex;
+        update();
+    }
+
+    function translateFor(i) {
+        // move exactly one slide width + gap each step
+        return -(i * (slideW + gapPx));
+    }
+
+    function goTo(i) {
+        index = Math.min(Math.max(i, 0), maxIndex);
+        update();
+    }
+
+    function update() {
+        track.style.transform = `translateX(${translateFor(index)}px)`;
+        const dots = Array.from(dotsWrap.children);
+        dots.forEach((d, di) => d.setAttribute('aria-selected', di === index ? 'true' : 'false'));
+    }
+
+    function next() {
+        goTo(index >= maxIndex ? 0 : index + 1);
+    }
+    function prev() {
+        goTo(index <= 0 ? maxIndex : index - 1);
+    }
+
+    // autoplay
+    function start() { if (autoplay && !autoplayTimer) autoplayTimer = setInterval(next, interval); }
+    function stop() { if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; } }
+
+    // events
+    nextBtn.addEventListener('click', () => { stop(); next(); start(); });
+    prevBtn.addEventListener('click', () => { stop(); prev(); start(); });
+    slider.addEventListener('mouseenter', stop);
+    slider.addEventListener('mouseleave', start);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+
+    // swipe
+    let startX = 0, dragging = false;
+    viewport.addEventListener('pointerdown', e => { dragging = true; startX = e.clientX; viewport.setPointerCapture(e.pointerId); stop(); });
+    viewport.addEventListener('pointerup', e => { if (!dragging) return; dragging = false; const dx = e.clientX - startX; if (Math.abs(dx) > 40) (dx < 0 ? next() : prev()); start(); });
+    viewport.addEventListener('pointercancel', () => { dragging = false; start(); });
+
+    // resize observer
+    const ro = new ResizeObserver(measure);
+    ro.observe(viewport);
+
+    // init
+    measure(); start();
+})();

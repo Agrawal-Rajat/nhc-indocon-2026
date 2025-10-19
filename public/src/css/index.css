@@ -978,3 +978,118 @@
     text-align: center;
   }
 }
+
+/* ===== City Showcase Slider (scoped) ===== */
+.cityshow {
+  padding: clamp(28px, 6vw, 64px) 0;
+}
+.cityshow-title {
+  margin: 0 0 clamp(14px, 3vw, 22px);
+  text-align: center;
+  letter-spacing: 0.4px;
+  font-weight: 900;
+  color: var(--blue, #1f3e8a);
+  font-size: clamp(1.2rem, 4.4vw, 2.2rem);
+}
+
+/* slider shell */
+.cityshow-slider {
+  position: relative;
+  user-select: none;
+}
+.cityshow-viewport {
+  overflow: hidden;
+  border-radius: var(--radius, 12px);
+  box-shadow: var(--shadow, 0 8px 30px rgba(0, 0, 0, 0.08));
+  background: #fff;
+}
+.cityshow-track {
+  list-style: none;
+  display: flex;
+  gap: clamp(8px, 1.4vw, 14px);
+  padding: clamp(8px, 1.4vw, 14px);
+  margin: 0;
+  transform: translateX(0);
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+.cityshow-slide {
+  flex: 0 0 var(--slide-w, 100%);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f7f7fb;
+}
+.cityshow-slide img {
+  width: 100%;
+  height: clamp(180px, 26vw, 380px);
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.02) saturate(1.02);
+}
+
+/* arrows */
+.cityshow-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  font-size: 28px;
+  line-height: 44px;
+  text-align: center;
+  color: var(--blue, #1f3e8a);
+  z-index: 2;
+}
+.cityshow-prev {
+  left: 10px;
+}
+.cityshow-next {
+  right: 10px;
+}
+.cityshow-arrow:hover {
+  background: #fff;
+}
+
+/* dots */
+.cityshow-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 12px 0 0;
+}
+.cityshow-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d1d5db;
+}
+.cityshow-dots button[aria-selected="true"] {
+  background: var(--blue, #1f3e8a);
+  transform: scale(1.2);
+}
+
+/* layout: slides per view */
+@media (max-width: 640px) {
+  .cityshow {
+    padding-top: 18px;
+  }
+  .cityshow-slide img {
+    height: clamp(200px, 46vw, 320px);
+  }
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .cityshow-slide img {
+    height: clamp(220px, 30vw, 360px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cityshow-track {
+    transition: none !important;
+  }
+  .cityshow-slider[data-autoplay="true"] {
+    pointer-events: auto;
+  }
+}
