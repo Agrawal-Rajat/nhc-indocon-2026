@@ -333,12 +333,11 @@
   border-radius: inherit;
 }
 
-/* ===== Banner + Dates & Venues — Modern, flat ===== */
 /* ===== Banner + Dates (Wave + Timeline) ===== */
 .sched-tl {
   position: relative;
   isolation: isolate;
-  padding-bottom: 0; /* remove extra bottom space */
+  padding-bottom: 0;
   margin-bottom: 2rem;
 }
 
@@ -350,7 +349,7 @@
 }
 .schedtl-hero img {
   width: 100%;
-  height: clamp(36vh, 52vh, 60vh); /* tightened from 42/58/66 */
+  height: clamp(36vh, 52vh, 60vh);
   object-fit: cover;
   display: block;
   filter: contrast(1.02) saturate(1.02);
@@ -363,12 +362,12 @@
   text-align: center;
   color: #fff;
   padding: 16px;
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(7, 13, 35, 0.45) 0%,
     rgba(7, 13, 35, 0.28) 50%,
     rgba(7, 13, 35, 0.55) 100%
-  );
+  ); */
 }
 .schedtl-kicker {
   display: inline-block;
@@ -553,6 +552,45 @@
     margin: 0 !important;
     text-align: center !important;
     border: none !important;
+  }
+}
+/* === Schedule hero: bigger and better crop === */
+:root {
+  /* tweak once and forget */
+  --schedtl-hero-min: 48vh; /* was 36vh */
+  --schedtl-hero-prefer: 64vh; /* was 52vh */
+  --schedtl-hero-max: 76vh; /* was 60vh */
+}
+
+/* increase height + show more of the top of the image */
+.schedtl-hero img {
+  height: clamp(
+    var(--schedtl-hero-min),
+    var(--schedtl-hero-prefer),
+    var(--schedtl-hero-max)
+  ) !important;
+  object-fit: cover;
+  object-position: center 12%; /* pull framing upward; try 0%..20% */
+}
+
+/* wave gets a touch taller so the curve feels proportional */
+.schedtl-hero::after {
+  height: 60px; /* was 44px */
+}
+
+/* desktop: a bit taller banner */
+@media (min-width: 1024px) {
+  .schedtl-hero img {
+    height: 72vh !important;
+    object-position: center 10%;
+  }
+}
+
+/* small screens: keep it reasonable */
+@media (max-width: 600px) {
+  .schedtl-hero img {
+    height: 56vh !important;
+    object-position: center 15%;
   }
 }
 
