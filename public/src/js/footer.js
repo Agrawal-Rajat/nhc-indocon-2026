@@ -66,7 +66,7 @@
       <!-- Footer Bottom -->
       <div class="footer-bottom">
         <div class="container">
-          <p>&copy; 2025 3RD NATIONAL HIP COURSE INDOCON 2026,(AOSI) All Rights Reserved | Developed By <a href="codeshor.com" target="_blank">CODEHSOR.COM</a></p>
+          <p>&copy; 2025 3RD NATIONAL HIP COURSE INDOCON 2026,(AOSI) All Rights Reserved | Developed By <a href="https://www.codeshor.com/" target="_blank">CODEHSOR.COM</a></p>
         </div>
       </div>
     </footer>
