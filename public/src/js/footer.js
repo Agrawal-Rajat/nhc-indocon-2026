@@ -9,11 +9,9 @@
         <div class="footer-content">
           <!-- Conference Info Section -->
           <div class="footer-section">
-            <div class="footer-logo">
-              <span style="font-weight: 700; font-size: 18px;">IndoCon</span>
-            </div>
-            <h3>Conference Secretariat</h3>
-            <p style="font-weight: 600; margin-bottom: 8px;">Dr Arjun Jain</p>
+            <img src="https://res.cloudinary.com/de0rdsbph/image/upload/v1760886093/a59e09fa-bfb8-4e12-9f50-c904a3351362.png" height="100px" width="100px" alt=Conference Secretariat/>
+            
+            <p style="font-weight: 600; margin-bottom: 8px;">Conference Secretariat <br>Dr Arjun Jain</p>
             <div class="secretary-info">
               <p><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>205, Sahijeevan Nagar Opposite Durgadas Statue, Gopur chouraha, Ahead Annapurna mandir, Indore (M.P.) - 452009</p>
               <p><i class="fas fa-phone" style="margin-right: 8px;"></i>+91 - 0731 424 5597</p>
