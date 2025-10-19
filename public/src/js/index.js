@@ -57,7 +57,14 @@
         { name: 'Dr. Vaibhav Goyal', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760643985/775ace98-53fc-4553-84d1-34c0aa81ed84.png' },
         { name: 'Dr. Mohit Mahoviya', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760795885/94703f2d-9943-4904-91fd-ca6c1f21f7f8.png' },
         { name: 'Dr. Pushpwardhan Mandlecha', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760795879/caad0c9e-42ff-4c45-bfc3-6f83a2cbb002.png' },
-        { name: 'Dr. Divyanshu Goyal', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760680033/248b539d-a0e9-4e9b-9242-745313d0bd23.png' }
+        { name: 'Dr. Divyanshu Goyal', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760680033/248b539d-a0e9-4e9b-9242-745313d0bd23.png' },
+        { name: 'Dr. Arjun Jain', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760886093/a59e09fa-bfb8-4e12-9f50-c904a3351362.png' },
+        { name: 'Dr. Abhijeet Pandit', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760886246/ef226abe-7919-4761-b454-244c06686c03.png' },
+        { name: 'Dr. Amol Patil', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760886273/a0ebc25f-1c3d-40c8-b4fb-b848450637b3.png' },
+        { name: 'Dr. Ashutosh Apte', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760886337/1a49bf5e-48ef-41fe-af3d-357606487c45.png' },
+        { name: 'Dr. Pradeep Choudhari', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760886371/4903720f-1bb7-42e8-af19-3fd7547a7c61.png' },
+        { name: 'Dr. Nitin Kimmatkar', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760886405/1f96a7d2-8ab1-498d-9bd0-e4530852c947.png' },
+        { name: 'Dr. Amol Kadu', image: 'https://res.cloudinary.com/de0rdsbph/image/upload/v1760886408/c1419067-2361-4c88-93ad-9353ac87b2d9.png' }
     ];
 
     // Cloudinary helper (face-aware portrait)
