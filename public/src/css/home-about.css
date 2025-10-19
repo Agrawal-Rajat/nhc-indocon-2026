@@ -46,7 +46,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--hx-blue1);
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 .hx-head h2 {
   margin: 0;

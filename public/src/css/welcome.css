@@ -157,3 +157,67 @@
     transition: none !important;
   }
 }
+
+/* place the message card under the duo grid */
+.duo--with-msg {
+  padding-bottom: clamp(28px, 5vw, 64px);
+}
+.duo--with-msg .duo-msg {
+  width: min(980px, 92vw);
+  margin: clamp(8px, 2.5vw, 20px) auto 0;
+}
+
+/* reuse wm2-card on light bg; keep heading styles but without dark wrapper */
+.duo--with-msg .wm2-heading h2 {
+  background: linear-gradient(120deg, #0b1c4a, #123b7a 60%, #3c82e6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.duo--with-msg .wm2-eyebrow {
+  color: #123b7a;
+  border-color: rgba(18, 59, 122, 0.22);
+  background: rgba(18, 59, 122, 0.06);
+}
+
+/* sign-off row with small avatars */
+.duo-signoff {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(12px, 2vw, 18px);
+}
+.duo-mini {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+}
+.duo-mini img {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(11, 102, 214, 0.18);
+}
+.duo-mini figcaption {
+  line-height: 1.25;
+}
+.duo-mini figcaption strong {
+  display: block;
+  font-size: 0.98rem;
+  color: #123b7a;
+}
+.duo-mini figcaption span {
+  display: block;
+  font-size: 0.9rem;
+  color: #50618a;
+}
+
+/* mobile stacking */
+@media (max-width: 700px) {
+  .duo-signoff {
+    grid-template-columns: 1fr;
+  }
+}
