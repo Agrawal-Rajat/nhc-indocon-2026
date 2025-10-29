@@ -4,7 +4,7 @@
 
     // Create a moving strip inside the fixed-width track
     const strip = document.createElement('div');
-    strip.className = 'nhc-hero-strip'
+    strip.className = 'nhc-hero-strip';
     track.appendChild(strip);
 
     // Cloudinary helper: fast, responsive transforms
@@ -13,9 +13,9 @@
 
     const images = [
         'https://res.cloudinary.com/de0rdsbph/image/upload/v1760641378/8a53fa98-9c0e-4772-a0eb-e09ffd933549.png',
-        'https://res.cloudinary.com/de0rdsbph/image/upload/v1761717234/banner_hhrhjs.jpg',
+        'https://res.cloudinary.com/de0rdsbph/image/upload/v1760666174/c474cecb-854c-44a6-bb3f-0c7f7b250741.png',
         'https://res.cloudinary.com/de0rdsbph/image/upload/v1760666190/5faaa231-6b7f-4d05-8f1d-685bfc582822.png',
-        'https://res.cloudinary.com/de0rdsbph/image/upload/v1760666206/254e3da8-c44b-462a-80b3-cb098567aa99.png'
+        'https://res.cloudinary.com/de0rdsbph/image/upload/v1761717234/banner_hhrhjs.jpg'
     ];
     const widths = [480, 768, 1200, 1600];
 
