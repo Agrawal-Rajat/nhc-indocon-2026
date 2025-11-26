@@ -86,11 +86,9 @@
             if (resultText.includes("Success")) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Registration Successful!',
-                    text: `Thank you for registering for the 3rd NHC IndoCon!
-
-Your form has been submitted successfully.
-A confirmation email with participation and conference details will be shared with you shortly.`,
+                    title: 'Registration Submitted!',
+                    text: `Thank you for submitting your registration for the 3rd NHC IndoCon 2026
+We have received your details successfully. Our team will review your submission and connect with you shortly.`,
                     confirmButtonText: 'OK'
                 });
                 form.reset();
