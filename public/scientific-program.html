@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scientific Program | NHC INDOCON 2026</title>
+
+    <link rel="icon" href="./indocon1.ico" type="image/x-icon">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="./src/css/styles.css">
+    <link rel="stylesheet" href="./src/css/navbar.css">
+    <link rel="stylesheet" href="./src/css/footer.css">
+
+    <script defer src="./src/js/navbar.js"></script>
+    <script defer src="./src/js/footer.js"></script>
+
+    <!-- Page Styles -->
+    <style>
+        .page-hero {
+            padding: 2rem 1rem 1.5rem;
+            background: linear-gradient(180deg, #f7faff, #ffffff);
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #1e3a8a;
+            margin-bottom: 0.6rem;
+        }
+
+        .page-hero p {
+            max-width: 760px;
+            margin: auto;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .brochure-btn {
+            margin-top: 1.2rem;
+        }
+
+        .program-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2.5rem 1rem 4rem;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2.5rem 0 1.5rem;
+            padding-left: 1rem;
+            border-left: 5px solid #1e3a8a;
+        }
+
+        .day-header h2 {
+            font-size: 1.6rem;
+            color: #111;
+        }
+
+        .day-header span {
+            font-weight: 600;
+            color: #666;
+        }
+
+        /* Accordion */
+        .module-accordion {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.2rem;
+            overflow: hidden;
+        }
+
+        .module-toggle {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .module-toggle h3 {
+            margin: 0;
+            color: #1e3a8a;
+            font-size: 1.05rem;
+        }
+
+        .module-time {
+            font-size: 0.85rem;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .chevron {
+            font-size: 1.6rem;
+            transition: transform 0.3s ease;
+        }
+
+        .module-content {
+            display: none;
+            padding: 0 1.4rem 1.3rem;
+        }
+
+        .module-accordion.active .module-content {
+            display: block;
+        }
+
+        .module-accordion.active .chevron {
+            transform: rotate(45deg);
+        }
+
+        .session-table {
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .session-table .row {
+            display: grid;
+            grid-template-columns: 90px 1.6fr 1fr 1fr;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+        }
+
+        .session-table .header {
+            font-weight: 700;
+            color: #111;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.4rem;
+        }
+
+        @media (max-width: 768px) {
+            .session-table .row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <!-- Left: Logo -->
+            <a class="logo" href="index.html" aria-label="NHC INDOCON 2026">
+                <img src="./indocon1.ico" alt="NHC INDOCON 2026" width="140" height="40" decoding="async"
+                    fetchpriority="high">
+            </a>
+
+            <!-- Center: Nav -->
+            <nav id="nav-menu" class="nav" aria-label="Primary">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="./index.html">Home</a></li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">About</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="index.html">About NHC IndoCon</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="index.html">About AOSI</a></li>
+                            <li role="none"><a role="menuitem" href="index.html">About Indore</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Committees</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="patrons.html">Patrons</a></li>
+                            <li role="none"><a role="menuitem" href="organising-committee.html">Organising
+                                    Committee</a></li>
+                            <li role="none"><a role="menuitem" href="proposed-faculties.html">Proposed Faculties</a>
+                            </li>
+                            <li role="none"><a role="menuitem" href="team-mp.html">Team Madhya Pradesh</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="scientific-program.html">Scientific
+                            Program</a></li>
+
+                    <!-- <li class="nav-item has-submenu">
+                                <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
+                                    Program</button>
+                                <ul class="submenu" role="menu">
+                                    <li role="none"><a role="menuitem" href="index.html">Cadaveric Workshop - (Pre Conference)
+                                        </a></li>
+                                    <li role="none"><a role="menuitem" href="index.html">Main Conference
+                                        </a></li>
+                                </ul>
+                            </li> -->
+
+                    <li class="nav-item has-submenu">
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Venue &
+                            Travel</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="index.html">Cadaveric Workshop Venue</a></li>
+                            <li role="none"><a role="menuitem" href="index.html">Main Conference Venue</a></li>
+                            <li role="none"><a role="menuitem" href="index.html">Travel Information</a></li>
+                            <li role="none"><a role="menuitem" href="index.html">Accommodation</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a href="contact.html">Contact Us</a></li>
+
+                    <!-- Mobile CTA (inside drawer, last) -->
+                    <li class="nav-item nav-cta-mobile">
+                        <a class="btn btn-primary btn-cta" href="form.html">Register Now</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right: Desktop CTA -->
+            <div class="nav-cta-desktop">
+                <a class="btn btn-primary btn-cta" href="form.html">Register Now</a>
+            </div>
+
+            <!-- Mobile hamburger -->
+            <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <h1>Scientific Program</h1>
+        <p>
+            A comprehensive, evidence-based academic program featuring workshops,
+            debates, masterclasses and case-based discussions led by eminent faculty.
+        </p>
+
+        <div class="brochure-btn">
+            <a href="scientific-program.pdf" target="_blank" class="btn btn-primary">
+                Download Scientific Brochure (PDF)
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <main class="program-container">
+
+        <!-- DAY 1 -->
+        <div class="day-header">
+            <h2>Day 1</h2>
+            <span>24 January 2026</span>
+        </div>
+
+        <!-- Module 1 -->
+        <div class="module-accordion">
+            <button class="module-toggle">
+                <div>
+                    <h3>Module 1 – Infection</h3>
+                    <span class="module-time">08:40 – 10:30</span>
+                </div>
+                <span class="chevron">+</span>
+            </button>
+
+            <div class="module-content">
+                <div class="session-table">
+                    <div class="row header">
+                        <span>Time</span><span>Topic</span><span>Faculty</span><span>Moderator</span>
+                    </div>
+
+                    <div class="row">
+                        <span>08:40</span>
+                        <span>Introduction of Module</span>
+                        <span>Dr. Vikas Agashe</span>
+                        <span>Dr. Kashyap Ardeshna</span>
+                    </div>
+
+                    <div class="row">
+                        <span>08:45</span>
+                        <span>The World of Microbes – ORTHOPODA</span>
+                        <span>Dr. Vikas Agashe</span>
+                        <span>Dr. Asim Negi</span>
+                    </div>
+
+                    <div class="row">
+                        <span>09:40</span>
+                        <span>Implant Related Infection in Early Post-op Period</span>
+                        <span>Dr. Pranali Pingle</span>
+                        <span>Dr. Ashok Malviya</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-accordion">
+            <button class="module-toggle">
+                <div>
+                    <h3>Module 2 – Femoral Neck</h3>
+                    <span class="module-time">10:30 – 11:30</span>
+                </div>
+                <span class="chevron">+</span>
+            </button>
+
+            <div class="module-content">
+                <div class="session-table">
+                    <div class="row header">
+                        <span>Time</span><span>Topic</span><span>Faculty</span><span>Moderator</span>
+                    </div>
+
+                    <div class="row">
+                        <span>10:30</span>
+                        <span>Conservative Treatment – When? How?</span>
+                        <span>Dr. Kashyap Ardeshna</span>
+                        <span>Dr. D.D. Tanna</span>
+                    </div>
+
+                    <div class="row">
+                        <span>10:50</span>
+                        <span>Case Discussions & Relive Video</span>
+                        <span>Dr. John Mukhopadhaya</span>
+                        <span>Dr. Sameer Agrawal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 2 -->
+        <div class="day-header">
+            <h2>Day 2</h2>
+            <span>25 January 2026</span>
+        </div>
+
+        <div class="module-accordion">
+            <button class="module-toggle">
+                <div>
+                    <h3>Peri-Implant / Periprosthetic Reconstruction</h3>
+                    <span class="module-time">09:00 – 10:10</span>
+                </div>
+                <span class="chevron">+</span>
+            </button>
+
+            <div class="module-content">
+                <div class="session-table">
+                    <div class="row header">
+                        <span>Time</span><span>Topic</span><span>Faculty</span><span>Moderator</span>
+                    </div>
+
+                    <div class="row">
+                        <span>09:00</span>
+                        <span>Bipolar with Peri-Prosthetic Fracture</span>
+                        <span>Dr. Pradeep Chaudhari</span>
+                        <span>Dr. Samarth Mittal</span>
+                    </div>
+
+                    <div class="row">
+                        <span>09:20</span>
+                        <span>Cemented THA – Pearls of Wisdom</span>
+                        <span>Dr. Sameer Gupta</span>
+                        <span>Dr. Rajeev Shukla</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <div id="nhc-footer-root"></div>
+
+    <!-- Accordion JS -->
+    <script>
+        document.querySelectorAll('.module-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
