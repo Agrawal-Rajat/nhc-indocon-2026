@@ -60,7 +60,7 @@
                             <li role="none"><a role="menuitem" href="patrons.html">Patrons</a></li>
                             <li role="none"><a role="menuitem" href="organising-committee.html">Organising
                                     Committee</a></li>
-                            <li role="none"><a role="menuitem" href="proposed-faculties.html">Proposed Faculties</a>
+                            <li role="none"><a role="menuitem" href="proposed-faculties.html">Faculties</a>
                             </li>
                             <li role="none"><a role="menuitem" href="team-mp.html">Team Madhya Pradesh</a></li>
 
@@ -70,19 +70,19 @@
                             Program</a></li>
 
                     <!-- <li class="nav-item has-submenu">
-                            <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
-                                Program</button>
-                            <ul class="submenu" role="menu">
-                                <li role="none"><a role="menuitem" href="index.html">Cadaveric Workshop - (Pre Conference)
-                                    </a></li>
-                                <li role="none"><a role="menuitem" href="index.html">Main Conference
-                                    </a></li>
-                            </ul>
-                        </li> -->
+                                <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Scientific
+                                    Program</button>
+                                <ul class="submenu" role="menu">
+                                    <li role="none"><a role="menuitem" href="index.html">Cadaveric Workshop - (Pre Conference)
+                                        </a></li>
+                                    <li role="none"><a role="menuitem" href="index.html">Main Conference
+                                        </a></li>
+                                </ul>
+                            </li> -->
 
                     <li class="nav-item has-submenu">
-                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Venue &
-                            Travel</button>
+                        <button class="submenu-toggle" aria-expanded="false" aria-haspopup="true">Conference
+                            Updates</button>
                         <ul class="submenu" role="menu">
                             <li role="none"><a role="menuitem" href="index.html">Cadaveric Workshop Venue</a></li>
                             <li role="none"><a role="menuitem" href="index.html">Main Conference Venue</a></li>
@@ -112,6 +112,7 @@
             </button>
         </div>
     </header>
+
     <main class="container">
         <!-- Poster / hero -->
         <figure class="reg-hero" aria-label="Event poster">
@@ -258,9 +259,10 @@
                             <select name="nrCategory" id="nrCategory">
                                 <option value="" selected>Nil</option>
                                 <!-- data-base is the pre-GST price; data-gst is exact GST to avoid rounding issues -->
-                                <option value="delegate" data-base="10800" data-gst="1944">Delegate: ₹10800 + ₹1944 GST
+                                <option value="delegate" data-base="12000" data-gst="2160">Delegate: ₹12000 + ₹2160 GST
                                 </option>
-                                <option value="pg" data-base="5500" data-gst="990">PG Student: ₹5500 + ₹990 GST</option>
+                                <option value="pg" data-base="6000" data-gst="1080">PG Student: ₹6000 + ₹1080 GST
+                                </option>
                                 <option value="faculty" data-base="10800" data-gst="1944">Faculty: ₹10800 + ₹1944 GST
                                 </option>
                                 <option value="workshop" data-base="50000" data-gst="9000">Cadaveric Workshop: ₹50000 +
@@ -277,8 +279,9 @@
                             <select name="accompany" id="accompany">
                                 <option value="" selected>Nil</option>
                                 <!-- Original label said 1080 GST; using that to match your figures -->
-                                <option value="accompany-nr" data-base="8000" data-gst="1440">Accompanying Person: ₹8000
-                                    + ₹1440 GST
+                                <option value="accompany-nr" data-base="10000" data-gst="1800">Accompanying Person:
+                                    ₹10000
+                                    + ₹1800 GST
                                 </option>
                             </select>
                         </label>
@@ -296,14 +299,14 @@
                             <span>2 Days / 1 Night (24–25 Jan 2026) <em class="reg-muted">(till 31st Oct)</em></span>
                             <select name="residential_2d1n" id="residential_2d1n">
                                 <option value="" selected>Nil</option>
-                                <option value="r-2d1n-twin" data-base="16000" data-gst="2880">Delegate (Twin Sharing):
-                                    ₹16000 + ₹2880
+                                <option value="r-2d1n-twin" data-base="17500" data-gst="3150">Delegate (Twin Sharing):
+                                    ₹17500 + ₹3150
                                     GST</option>
-                                <option value="r-2d1n-single" data-base="22000" data-gst="3960">Delegate (Single
-                                    Occupancy): ₹22000 +
-                                    ₹3960 GST</option>
-                                <option value="r-2d1n-accomp" data-base="12000" data-gst="2160">Accompanying Person:
-                                    ₹12000 + ₹2160 GST
+                                <option value="r-2d1n-single" data-base="24000" data-gst="4320">Delegate (Single
+                                    Occupancy): ₹24000 +
+                                    ₹4320 GST</option>
+                                <option value="r-2d1n-accomp" data-base="14000" data-gst="2520">Accompanying Person:
+                                    ₹14000 + ₹2520 GST
                                 </option>
                             </select>
                         </label>
@@ -312,14 +315,14 @@
                             <span>3 Days / 2 Nights (23–25 Jan 2026)</span>
                             <select name="residential_3d2n" id="residential_3d2n">
                                 <option value="" selected>Nil</option>
-                                <option value="r-3d2n-twin" data-base="21500" data-gst="3870">Delegate (Twin Sharing):
-                                    ₹21500 + ₹3870
+                                <option value="r-3d2n-twin" data-base="23000" data-gst="4140">Delegate (Twin Sharing):
+                                    ₹23000 + ₹4140
                                     GST</option>
-                                <option value="r-3d2n-single" data-base="33000" data-gst="5940">Delegate (Single
-                                    Occupancy): ₹33000 +
-                                    ₹5940 GST</option>
-                                <option value="r-3d2n-accomp" data-base="17000" data-gst="3060">Accompanying Person:
-                                    ₹17000 + ₹3060 GST
+                                <option value="r-3d2n-single" data-base="35000" data-gst="6300">Delegate (Single
+                                    Occupancy): ₹35000 +
+                                    ₹6300 GST</option>
+                                <option value="r-3d2n-accomp" data-base="19000" data-gst="3420">Accompanying Person:
+                                    ₹19000 + ₹3420 GST
                                 </option>
                             </select>
                         </label>
